@@ -1,35 +1,53 @@
 <?php
 
-function exercice1(Array $tab1, Array $tab2) {
-        foreach ($tab1 as $keyMaitre => $elementMaitre) {
-        	foreach ($tab2 as $keyEnfant => $elementEnfant) {
-        		# code...
-        	}
-        }
+function tabToString(Array $tab) {
+	$string = "[";
+	foreach ($tab as $key => $value) {
+		if ($key != (count($tab) - 1)) {
+			$string .= '"'.$value.'", ';
+		}
+		else {
+			$string .= '"'.$value.'"]';
+		}
+	}
+	return $string;
 }
 
-function exercice2(Array $tab) {
-        // Votre code ici
+function exercice1(Array $tab1, Array $tab2) {
+	echo "Tableau maitre : ".tabToString($tab1)."\n";
+	echo "Tableau enfant : ".tabToString($tab2)."\n";
+	$tabFusion = [];
+    foreach ($tab1 as $keyMaitre => $elementMaitre) {
+    	foreach ($tab2 as $keyEnfant => $elementEnfant) {
+    		$tabFusion[] = $elementMaitre." ".$elementEnfant;
+    	}
+    }
+    echo "résultat de la fusion : ".tabToString($tabFusion)."\n\n";
+}
+
+function exercice2(string $string) {
+	echo "Chaine d'entrée : ".$string."\n";
+	echo "Tableau de sortie : ".tabtoString(explode(" ", $string))."\n\n";
 }
 
 function exercice3(Array $tab) {
-        // Votre code ici
+
 }
 
 function exercice4(Array $tab) {
-        // Votre code ici
+
 }
 
 function exercice5(Array $tab) {
-        // Votre code ici
+
 }
 
 function exercice6(Array $tab) {
-        // Votre code ici
+
 }
 
 function exercice7(Array $tab) {
-        // Votre code ici
+
 }
 
 /* Main code */
@@ -66,11 +84,15 @@ while ($continuer) {
 
 				switch ($niveau) {
 					case '1':
-						# code...
+						$masterTab = ["t-shirt", "pantalon"];
+						$suffixeTab = ["bleu", "rouge", "vert"];
+						exercice1($masterTab, $suffixeTab);
 						break;
 					
 					case '2':
-						# code...
+						$masterTab = ["poulet", "boeuf", "mouton"];
+						$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
+						exercice1($masterTab, $suffixeTab);
 						break;
 					
 					case '3':
@@ -102,11 +124,13 @@ while ($continuer) {
 
 				switch ($niveau) {
 					case '1':
-						# code...
+						$stringASplit = "un truc de plus à faire";
+						exercice2($stringASplit);
 						break;
 					
 					case '2':
-						# code...
+						$stringASplit = "horreur fantastique action western thriller comédie drame romance historique";
+						exercice2($stringASplit);
 						break;
 					
 					case '3':
