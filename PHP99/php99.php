@@ -13,6 +13,24 @@ function tabToString(Array $tab) {
 	return $string;
 }
 
+function choixNiveau(Array $exitAnswers) {
+	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
+	$niveau = trim(fgets(STDIN));
+	echo "\n";
+	if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+		return 0;
+	}
+	while ($niveau < 1 || $niveau > 3) {
+		echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
+		$niveau = trim(fgets(STDIN));
+		echo "\n";
+		if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+			return 0;
+		}
+	}
+	return $niveau;
+}
+
 function exercice1(Array $tab1, Array $tab2) {
 	echo "Tableau maitre : ".tabToString($tab1)."\n";
 	echo "Tableau enfant : ".tabToString($tab2)."\n";
@@ -66,260 +84,238 @@ while ($continuer) {
 	if (is_numeric($reponse)) {
 		switch ($reponse) {
 			case '1':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
-					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
+					else {
+						switch ($niveau) {
+							case '1':
+								$masterTab = ["t-shirt", "pantalon"];
+								$suffixeTab = ["bleu", "rouge", "vert"];
+								exercice1($masterTab, $suffixeTab);
+								break;
+							
+							case '2':
+								$masterTab = ["poulet", "boeuf", "mouton"];
+								$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
+								exercice1($masterTab, $suffixeTab);
+								break;
+							
+							case '3':
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								break;
+								
+								break;
+							
+							default:
+								# code...
+								break;
+						}
 
-				switch ($niveau) {
-					case '1':
-						$masterTab = ["t-shirt", "pantalon"];
-						$suffixeTab = ["bleu", "rouge", "vert"];
-						exercice1($masterTab, $suffixeTab);
-						break;
-					
-					case '2':
-						$masterTab = ["poulet", "boeuf", "mouton"];
-						$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
-						exercice1($masterTab, $suffixeTab);
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					}
 				}
 				break;
 			
 			case '2':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
-					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						$stringASplit = "un truc de plus à faire";
-						exercice2($stringASplit);
-						break;
-					
-					case '2':
-						$stringASplit = "horreur fantastique action western thriller comédie drame romance historique";
-						exercice2($stringASplit);
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								$stringASplit = "un truc de plus à faire";
+								exercice2($stringASplit);
+								break;
+							
+							case '2':
+								$stringASplit = "horreur fantastique action western thriller comédie drame romance historique";
+								exercice2($stringASplit);
+								break;
+							
+							case '3':
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								break;
+								
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
 			case '3':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// En attandant l'implémentation de l'exercice
+					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
 					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						# code...
-						break;
-					
-					case '2':
-						# code...
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								# code...
+								break;
+							
+							case '2':
+								# code...
+								break;
+							
+							case '3':
+								# code...
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
 			case '4':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// En attandant l'implémentation de l'exercice
+					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
 					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						# code...
-						break;
-					
-					case '2':
-						# code...
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								# code...
+								break;
+							
+							case '2':
+								# code...
+								break;
+							
+							case '3':
+								# code...
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
 			case '5':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// En attandant l'implémentation de l'exercice
+					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
 					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+					
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						# code...
-						break;
-					
-					case '2':
-						# code...
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								# code...
+								break;
+							
+							case '2':
+								# code...
+								break;
+							
+							case '3':
+								# code...
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
 			case '6':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// En attandant l'implémentation de l'exercice
+					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
 					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+					
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						# code...
-						break;
-					
-					case '2':
-						# code...
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								# code...
+								break;
+							
+							case '2':
+								# code...
+								break;
+							
+							case '3':
+								# code...
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
 			case '7':
-				// Demande le niveau souhaité
-				echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-				$niveau = trim(fgets(STDIN));
-				echo "\n";
-				if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+				while (true) {
+					// En attandant l'implémentation de l'exercice
+					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
 					break;
-				}
-				while ($niveau < 1 || $niveau > 3) {
-					echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-					$niveau = trim(fgets(STDIN));
-					echo "\n";
-					if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+					
+					// Demande le niveau souhaité
+					$niveau = choixNiveau($exitAnswers);
+					if ($niveau == 0) {
 						break;
 					}
-				}
-
-				switch ($niveau) {
-					case '1':
-						# code...
-						break;
-					
-					case '2':
-						# code...
-						break;
-					
-					case '3':
-						# code...
-						break;
-					
-					default:
-						# code...
-						break;
+					else {
+						switch ($niveau) {
+							case '1':
+								# code...
+								break;
+							
+							case '2':
+								# code...
+								break;
+							
+							case '3':
+								# code...
+								break;
+							
+							default:
+								# code...
+								break;
+						}
+					}
 				}
 				break;
 			
