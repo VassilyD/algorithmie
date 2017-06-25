@@ -128,11 +128,15 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								# code...
+								$fruits = ["trois", "deux", "un"];
+								echo "Tableau d'entrée : ".tabtoString($fruits)."\n";
+								echo "Tableau de sortie : ".tabToString(exercice3($fruits))."\n\n";
 								break;
 							
 							case '2':
-								# code...
+								$fruits = ["orange", "banane", "pomme", "fraise", "tomate", "framboise", "noix de coco", "ananas"];
+								echo "Tableau d'entrée : ".tabtoString($fruits)."\n";
+								echo "Tableau de sortie : ".tabToString(exercice3($fruits))."\n\n";
 								break;
 							
 							case '3':

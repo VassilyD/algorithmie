@@ -50,8 +50,11 @@ function exercice2(string $string) {
 	return explode(" ", $string));
 }
 
+/*
+Prends en entrée un tableau en sort en sortie un tableau contenant les deux derniers éléments du tableau d'entrée
+*/
 function exercice3(Array $tab) {
-
+	return array($tab[count($tab)-2], $tab[count($tab)-1]);
 }
 
 function exercice4(Array $tab) {
