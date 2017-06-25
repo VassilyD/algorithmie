@@ -58,11 +58,39 @@ function exercice3(Array $tab) {
 }
 
 function exercice4(Array $tab) {
+	// Calcule la taille du tableau
+	$taille = count($tab);
 
+	// Si la taille du tableau est impair et qu'il y a au moins 3 éléments
+	if ($taille%2 == 1 && $taille >= 3) {
+		// on décale vers la gauche tous les élements d'indice supérieur à la moitié de la taille du tableau
+		// ce qui écrase la valeur du milieu
+		for ($i = $taille/2 + 1; $i < $taille; $i++) {
+			$tab[$i-1] = $tab[$i];
+		}
+		// On supprime le dernier élément du tableau devenu obsolète 
+		array_pop($tab);
+	}
+	return $tab;
 }
 
 function exercice5(Array $tab) {
-
+	// Déclaration de l'indice de la chaine la plus longue
+	$keyPlusLongueChaine = 0;
+	// déclaration de la taille de la plus longue chaine de caractère
+	$taillePlusLongueChaine = 0;
+	// on teste chaque éléments un par un
+	foreach ($tab as $key => $value) {
+		// si la taille de l'élément en cours est plus grand que la plus longue chaine
+		if (strlen($value) > $taillePlusLongueChaine) {
+			// On mets à jour la taille de l'élément le plus grand
+			$taillePlusLongueChaine = strlen($value);
+			// On mets à jour l'indice de l'élément le plus grand
+			$keyPlusLongueChaine = $key;
+		}
+	}
+	// On retourne l'élément le plus grand
+	return $tab[$keyPlusLongueChaine];
 }
 
 function exercice6(Array $tab) {

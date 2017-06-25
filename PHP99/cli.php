@@ -4,17 +4,17 @@ require 'php99.php';
 
 
 function choixNiveau(Array $exitAnswers) {
-	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
+	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q  ou 0 pour revenir au menu principale)"."\n";
 	$niveau = strtolower(trim(fgets(STDIN)));
 	echo "\n";
 	if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
 		return 0;
 	}
 	while ($niveau < 1 || $niveau > 3) {
-		echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
+		echo "Veuillez entrer un chiffre entre 1 et 3 (q ou 0 pour revenir au menu principale)"."\n";
 		$niveau = strtolower(trim(fgets(STDIN)));
 		echo "\n";
-		if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+		if ((is_numeric($niveau) && $niveau == 0) || (is_string($niveau) && in_array($niveau, $exitAnswers))) {
 			return 0;
 		}
 	}
@@ -29,7 +29,7 @@ echo "Challenger : Vassily Dubois"."\n";
 
 $exitAnswers = ["q","quit", "quitter", "fin", "exit"]; // différente réponse possible pour sortir de la boucle principale
 $continuer = true;
-$question = "Quelle exercice voulez vous tester? (1 à 7, q pour quitter)"."\n";
+$question = "Quelle exercice voulez vous tester? (1 à 7, q ou 0 pour quitter)"."\n";
 
 while ($continuer) {
 	echo $question;
@@ -37,6 +37,10 @@ while ($continuer) {
 	echo "\n";
 	if (is_numeric($reponse)) {
 		switch ($reponse) {
+			case '0':
+				$continuer = false;
+				break;
+
 			case '1':
 				while (true) {
 					// Demande le niveau souhaité
@@ -150,10 +154,6 @@ while ($continuer) {
 			
 			case '4':
 				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
 					if ($niveau == 0) {
@@ -162,13 +162,15 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$prenoms = ["gauche", "milieu", "droite"];
+								echo "Tableau d'entrée : ".tabtoString($prenoms)."\n";
+								echo "Tableau de sortie : ".tabToString(exercice4($prenoms))."\n\n";
 								break;
 								
 							case '2':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$prenoms = ["Harry", "Hilary", "Harrington", "Hagrid", "Holmes"];
+								echo "Tableau d'entrée : ".tabtoString($prenoms)."\n";
+								echo "Tableau de sortie : ".tabToString(exercice4($prenoms))."\n\n";
 								break;
 								
 							case '3':
@@ -186,10 +188,6 @@ while ($continuer) {
 			
 			case '5':
 				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
 					if ($niveau == 0) {
@@ -198,13 +196,15 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$phrase = ["Une petite phrase", "Une pĥrase de batard super mega longue de truc de ouf qu'on en peu plus tellement c'est longuement à rallonge jte raconte pas", "Une phrase moyennement courte mais pas trop"];
+								echo "Tableau d'entrée : ".tabtoString($phrase)."\n";
+								echo "chaine la plus longue : ".exercice5($phrase)."\n\n";
 								break;
 								
 							case '2':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$phrase = ["ah...", "encore un beau dimanche", "de perdu", "cloîtré chez", "vous", "à coder", ",mais", " vous avez signé pour ça pas vrai ?", "alors courage !"];
+								echo "Tableau d'entrée : ".tabtoString($phrase)."\n";
+								echo "chaine la plus longue : ".exercice5($phrase)."\n\n";
 								break;
 								
 							case '3':
