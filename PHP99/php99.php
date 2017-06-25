@@ -1,51 +1,53 @@
+
 <?php
 
+/*
+Prends un tableau en entrée et retourne une chaine de caractère du style ["élément1", "élement2"]
+*/
 function tabToString(Array $tab) {
+	// Déclaration de la valeur de retour et ajout du crochet d'ouverture du tableau
 	$string = "[";
+
+	// On ajoute chaque élément du tableau les uns à la suite des autres dans la chaine $string
 	foreach ($tab as $key => $value) {
+		// On encadre chaque élément avec des guillemet double
+		// si l'élément n'est pas le dernier du tableau on rajoute une virgule et un espace
 		if ($key != (count($tab) - 1)) {
 			$string .= '"'.$value.'", ';
 		}
 		else {
+			// pour le dernier éléments  on ferme le tableau avec unj ] en lieu et place de la , et son espace
 			$string .= '"'.$value.'"]';
 		}
 	}
+	// retour de la chaine complète
 	return $string;
 }
 
-function choixNiveau(Array $exitAnswers) {
-	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q pour revenir au menu principale)"."\n";
-	$niveau = trim(fgets(STDIN));
-	echo "\n";
-	if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
-		return 0;
-	}
-	while ($niveau < 1 || $niveau > 3) {
-		echo "Veuillez entrer un chiffre entre 1 et 3 (q pour revenir au menu principale)"."\n";
-		$niveau = trim(fgets(STDIN));
-		echo "\n";
-		if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
-			return 0;
-		}
-	}
-	return $niveau;
-}
-
-function exercice1(Array $tab1, Array $tab2) {
-	echo "Tableau maitre : ".tabToString($tab1)."\n";
-	echo "Tableau enfant : ".tabToString($tab2)."\n";
+/*
+ Prends deux tableau en entrée et associe chaque éléments du deuxime à chaque éléments du premier
+ exemple : exercice1(["pierre", "feuille"], ["rouge", "bleu"]) donne ["pierre rouge", "pierre bleu", feuille rouge", "feuille bleu"]
+*/
+function exercice1(Array $masterTab, Array $suffixeTab) {
+	// déclaration du tableau de sortie
 	$tabFusion = [];
-    foreach ($tab1 as $keyMaitre => $elementMaitre) {
-    	foreach ($tab2 as $keyEnfant => $elementEnfant) {
+	// pour chaque élément du tableau maitre
+    foreach ($masterTab as $keyMaitre => $elementMaitre) {
+    	// pour chaque élément du tableau enfant on créer un élément qui est la fusion maitre enfant
+    	foreach ($suffixeTab as $keyEnfant => $elementEnfant) {
+    		// on ajoute la fusion au tableau de retour
     		$tabFusion[] = $elementMaitre." ".$elementEnfant;
     	}
     }
-    echo "résultat de la fusion : ".tabToString($tabFusion)."\n\n";
+    return $tabFusion;
 }
 
+/*
+Prends une chaine de caractère en entrée et créé un tableau avec un élément par mots de la chaine entrée
+*/
 function exercice2(string $string) {
-	echo "Chaine d'entrée : ".$string."\n";
-	echo "Tableau de sortie : ".tabtoString(explode(" ", $string))."\n\n";
+	// la fonctions explode fait exactement ce que l'on veut ^^
+	return explode(" ", $string));
 }
 
 function exercice3(Array $tab) {
@@ -67,280 +69,5 @@ function exercice6(Array $tab) {
 function exercice7(Array $tab) {
 
 }
-
-/* Main code */
-
-echo "Challenge php99"."\n";
-echo "Challenger : Vassily Dubois"."\n";
-
-$exitAnswers = ["q", "Q", "quit", "Quit", "QUIT", "quitter", "Quitter", "QUITTER", "fin", "Fin", "FIN", "exit", "Exit", "EXIT"]; // différente réponse possible pour sortir de la boucle principale
-$continuer = true;
-$question = "Quelle exercice voulez vous tester? (1 à 7, q pour quitter)"."\n";
-
-while ($continuer) {
-	echo $question;
-	$reponse = trim(fgets(STDIN));
-	echo "\n";
-	if (is_numeric($reponse)) {
-		switch ($reponse) {
-			case '1':
-				while (true) {
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								$masterTab = ["t-shirt", "pantalon"];
-								$suffixeTab = ["bleu", "rouge", "vert"];
-								exercice1($masterTab, $suffixeTab);
-								break;
-							
-							case '2':
-								$masterTab = ["poulet", "boeuf", "mouton"];
-								$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
-								exercice1($masterTab, $suffixeTab);
-								break;
-							
-							case '3':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
-								break;
-								
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-
-					}
-				}
-				break;
-			
-			case '2':
-				while (true) {
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								$stringASplit = "un truc de plus à faire";
-								exercice2($stringASplit);
-								break;
-							
-							case '2':
-								$stringASplit = "horreur fantastique action western thriller comédie drame romance historique";
-								exercice2($stringASplit);
-								break;
-							
-							case '3':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
-								break;
-								
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			case '3':
-				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								# code...
-								break;
-							
-							case '2':
-								# code...
-								break;
-							
-							case '3':
-								# code...
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			case '4':
-				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								# code...
-								break;
-							
-							case '2':
-								# code...
-								break;
-							
-							case '3':
-								# code...
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			case '5':
-				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								# code...
-								break;
-							
-							case '2':
-								# code...
-								break;
-							
-							case '3':
-								# code...
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			case '6':
-				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								# code...
-								break;
-							
-							case '2':
-								# code...
-								break;
-							
-							case '3':
-								# code...
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			case '7':
-				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
-					// Demande le niveau souhaité
-					$niveau = choixNiveau($exitAnswers);
-					if ($niveau == 0) {
-						break;
-					}
-					else {
-						switch ($niveau) {
-							case '1':
-								# code...
-								break;
-							
-							case '2':
-								# code...
-								break;
-							
-							case '3':
-								# code...
-								break;
-							
-							default:
-								# code...
-								break;
-						}
-					}
-				}
-				break;
-			
-			default:
-				echo "Veuillez entrer un chiffre entre 1 et 7."."\n";
-				break;
-		}
-	}
-	elseif (is_string($reponse)) {
-		// 
-		if (in_array($reponse, $exitAnswers)) {
-			// Permet de sortir de la bouclme principale
-			$continuer = false;
-		}
-		else {
-			echo "Si vous souhaiter quitter le programme entrez l'une des valeur suivante :"."\n";
-			echo '"q", "quit", "quitter", "fin", "exit"'."\n";
-		}
-	}
-	else {
-		echo "Veuillez entrer un chiffre entre 1 et 7."."\n";
-		echo "Si vous souhaiter quitter le programme entrez l'une des valeur suivante :"."\n";
-		echo '"q", "quit", "quitter", "fin", "exit"'."\n";
-	}
-}
-
 
 ?>
