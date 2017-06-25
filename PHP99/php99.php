@@ -97,8 +97,15 @@ function exercice6(Array $tab) {
 
 }
 
-function exercice7(Array $tab) {
-
+function exercice7(Array $tab, string $lettre) {
+	// Déclaration du nombre d'occurence
+	$nbOccur = 0;
+	foreach ($tab as $value) {
+		for ($i = 0; $i < strlen($value); $i++) {
+			if ($value[$i] == $lettre) { $nbOccur++; }
+		}
+	}
+	return $nbOccur;
 }
 
 ?>

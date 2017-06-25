@@ -7,7 +7,7 @@ function choixNiveau(Array $exitAnswers) {
 	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q  ou 0 pour revenir au menu principale)"."\n";
 	$niveau = strtolower(trim(fgets(STDIN)));
 	echo "\n";
-	if (is_string($niveau) && in_array($niveau, $exitAnswers)) {
+	if ((is_numeric($niveau) && $niveau == 0) || (is_string($niveau) && in_array($niveau, $exitAnswers))) {
 		return 0;
 	}
 	while ($niveau < 1 || $niveau > 3) {
@@ -258,10 +258,6 @@ while ($continuer) {
 			
 			case '7':
 				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
 					if ($niveau == 0) {
@@ -270,13 +266,17 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$sadisme = exercice2("miam j'aime marmonner");
+								$lettre = 'm';
+								echo "Tableau d'entrée : ".tabtoString($sadisme)."\n";
+								echo "Nombre d'occurence de la lettre ".$lettre." : ".exercice7($sadisme, $lettre)."\n\n";
 								break;
 								
 							case '2':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$sadisme = ["haha", "hehe", "j'aime mon travail", "une vraie joie", "je changerai pour rien au monde", "hhhhhhhh", "have fun !"];
+								$lettre = 'h';
+								echo "Tableau d'entrée : ".tabtoString($sadisme)."\n";
+								echo "Nombre d'occurence de la lettre ".$lettre." : ".exercice7($sadisme, $lettre)."\n\n";
 								break;
 								
 							case '3':
