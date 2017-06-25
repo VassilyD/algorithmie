@@ -47,7 +47,7 @@ Prends une chaine de caractère en entrée et créé un tableau avec un élémen
 */
 function exercice2(string $string) {
 	// la fonctions explode fait exactement ce que l'on veut ^^
-	return explode(" ", $string));
+	return explode(" ", $string);
 }
 
 /*

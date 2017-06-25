@@ -1,6 +1,6 @@
 <?php
 // inclusion des fonctions (require est moin permissif que include et plante le script en cas d'erreur)
-require 'php99fonctions.php';
+require 'php99.php';
 
 
 function choixNiveau(Array $exitAnswers) {
@@ -116,10 +116,6 @@ while ($continuer) {
 			
 			case '3':
 				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
 					if ($niveau == 0) {
@@ -140,9 +136,10 @@ while ($continuer) {
 								break;
 							
 							case '3':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							default:
 								# code...
 								break;
@@ -165,17 +162,20 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '2':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '3':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							default:
 								# code...
 								break;
@@ -198,17 +198,20 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '2':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '3':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							default:
 								# code...
 								break;
@@ -231,17 +234,20 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '2':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '3':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							default:
 								# code...
 								break;
@@ -264,17 +270,20 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '2':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							case '3':
-								# code...
+								// En attandant l'implémentation du niveau
+								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
 								break;
-							
+								
 							default:
 								# code...
 								break;
