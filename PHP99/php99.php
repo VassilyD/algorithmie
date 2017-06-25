@@ -74,6 +74,10 @@ function exercice4(Array $tab) {
 	return $tab;
 }
 
+/*
+Prends en entrée un tableau de chaine de caractère
+Retourne la chaine la plus longue du tableau
+*/
 function exercice5(Array $tab) {
 	// Déclaration de l'indice de la chaine la plus longue
 	$keyPlusLongueChaine = 0;
@@ -97,14 +101,23 @@ function exercice6(Array $tab) {
 
 }
 
+/*
+Prends en entrée un tableau de chaine de caractère un un caractère
+Retourne le nombre de fois que le caractère apparait dans l'ensemble du tableau
+*/
 function exercice7(Array $tab, string $lettre) {
 	// Déclaration du nombre d'occurence
 	$nbOccur = 0;
+
+	// On parcours l'ensemble du tableau
 	foreach ($tab as $value) {
+		// Pour chaque éléments on vérifie lettre par lettre si l'on trouve une occurence de notre lettre
 		for ($i = 0; $i < strlen($value); $i++) {
+			// si la lettre correspond on incrémente nbOccur de 1
 			if ($value[$i] == $lettre) { $nbOccur++; }
 		}
 	}
+	// On retourne le nombre d'occurence
 	return $nbOccur;
 }
 
