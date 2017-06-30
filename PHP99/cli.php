@@ -59,7 +59,7 @@ while ($continuer) {
 								break;
 							
 							case '2':
-								$masterTab = ["poulet", "boeuf", "mouton"];
+								$masterTab = ["poulet", "boeuf", ""];
 								$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
 								echo "Tableau maitre : ".tabToString($masterTab)."\n";
 								echo "Tableau enfant : ".tabToString($suffixeTab)."\n";
@@ -93,13 +93,13 @@ while ($continuer) {
 						switch ($niveau) {
 							case '1':
 								$stringASplit = "un truc de plus à faire";
-								echo "Chaine d'entrée : ".$string."\n";
+								echo "Chaine d'entrée : ".$stringASplit."\n";
 								echo "Tableau de sortie : ".tabtoString(exercice2($stringASplit))."\n\n";
 								break;
 							
 							case '2':
 								$stringASplit = "horreur fantastique action western thriller comédie drame romance historique";
-								echo "Chaine d'entrée : ".$string."\n";
+								echo "Chaine d'entrée : ".$stringASplit."\n";
 								echo "Tableau de sortie : ".tabtoString(exercice2($stringASplit))."\n\n";
 								break;
 							
@@ -222,10 +222,6 @@ while ($continuer) {
 			
 			case '6':
 				while (true) {
-					// En attandant l'implémentation de l'exercice
-					echo "Désolé cet exercice n'est pas encore implémenté..."."\n\n";
-					break;
-					
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
 					if ($niveau == 0) {
@@ -234,13 +230,16 @@ while ($continuer) {
 					else {
 						switch ($niveau) {
 							case '1':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$portables = ["0612459623", "0645896235", "1678145263", "06478952636541654", "065512"];
+								echo "Tableau d'entrée : ".tabtoString($portables)."\n";
+								echo "Tableau de sortie : ".tabtoString(exercice6($portables))."\n";
 								break;
 								
 							case '2':
-								// En attandant l'implémentation du niveau
-								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
+								$portables = ["0612459623", "0645896235", "0678145263", "0654789544", "0652358512"];
+								echo "Tableau d'entrée : ".tabtoString($portables)."\n";
+								echo "Tableau de sortie : ".tabtoString(exercice6($portables))."\n";
+								break;
 								break;
 								
 							case '3':
