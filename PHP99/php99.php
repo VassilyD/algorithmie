@@ -93,11 +93,13 @@ function exercice2(string $string) {
 Prends en entrée un tableau en sort en sortie un tableau contenant les deux derniers éléments du tableau d'entrée
 */
 function exercice3(Array $tab) {
+	// On stock la taille du tableau ên mémoire
+	$taille = count($tab);
 	// On vérifie que le tableau ne sois pas vide et contienne au moins 2 élément
-	if (!empty($tab) && $tab != NULL && count($tab) > 1) {
+	if (!empty($tab) && $tab != NULL && $taille > 1) {
 		// On renvoie un tableau (array()) contenant les deux dernier éléments du tableau d'entrée
-		// On utilise count($nom-du-tableau)-i pour accèder au i-ème dernier élément d'un tableau
-		return array($tab[count($tab)-2], $tab[count($tab)-1]);
+		// On utilise count($nom-du-tableau)-i pour accèder au i-ème dernier élément d'un tableau (ici $taille contient le résultat du count ui ici ne doit pas changer)
+		return array($tab[$taille-2], $tab[$taille-1]);
 	} else {
     	// On retourne null si le tableau d'entrée est vide ou inexistant
     	return null;
@@ -150,10 +152,11 @@ function exercice5(Array $tab) {
 		// l'indice de l'élément en cours sera stocker dans $key
 		// La valeur de l'élément en cours sera stocker dans $value
 		foreach ($tab as $key => $value) {
+			$taille = strlen($value);
 			// Si l'élément en cours n'est pas null et que sa taille est supérieur à celle de la plus longue chaine
-			if ($value != NULL && strlen($value) > $taillePlusLongueChaine) {
+			if ($value != NULL && $taille > $taillePlusLongueChaine) {
 				// On mets à jour la taille de l'élément le plus grand
-				$taillePlusLongueChaine = strlen($value);
+				$taillePlusLongueChaine = $taille;
 				// On mets à jour l'indice de l'élément le plus grand
 				$keyPlusLongueChaine = $key;
 			}
@@ -215,7 +218,8 @@ function exercice7(Array $tab, string $lettre, bool $casse = true) {
 				// La valeur de l'élément en cours sera stocker dans $value
 				foreach ($tab as $value) {
 					// Pour chaque éléments on vérifie lettre par lettre si l'on trouve une occurence de notre lettre
-					for ($i = 0; $i < strlen($value); $i++) {
+					$taille = strlen($value);
+					for ($i = 0; $i < $taille; $i++) {
 						// si la lettre correspond on incrémente nbOccur de 1
 						// Remarquez le fait qu'il n'y ai pas d'accolade pour ce if
 						// c'est par ce que il n'y a qu'une seule instruction associer au if (le nbOccur++)
@@ -231,8 +235,9 @@ function exercice7(Array $tab, string $lettre, bool $casse = true) {
 				foreach ($tab as $value) {
 					// On met notre mot en minuscule
 					$value = strtolower($value);
+					$taille = strlen($value);
 					// Pour chaque éléments on vérifie lettre par lettre si l'on trouve une occurence de notre lettre (sans se soucier de la casse)
-					for ($i = 0; $i < strlen($value); $i++) {
+					for ($i = 0; $i < $taille; $i++) {
 						// si la lettre correspond on incrémente nbOccur de 1
 						// Remarquez que l'on pmeut quand même mettre des accolade pour un if avec une seule action
 						// on peut même se payer le luxe de tout garder sur la même ligne

@@ -420,6 +420,35 @@ function realisateurZele(array $films) {
 	return key($realisateurs).' ('.current($realisateurs).' films)';
 }
 
+function topXCost(array $films, int $top, bool $rented = false) {
+	$cost = [];
+	for ($i=0; $i < $top; $i++) { 
+		if ($rented) {
+			if (isset($films[$i]['im:rentalPrice']['attributes']['amount'])) {
+				if(array_key_exists($films[$i]['im:rentalPrice']['attributes']['currency'], $cost)) {
+					$cost[$films[$i]['im:rentalPrice']['attributes']['currency']] += $films[$i]['im:rentalPrice']['attributes']['amount'];
+				} else {
+					$cost[$films[$i]['im:rentalPrice']['attributes']['currency']] = $films[$i]['im:rentalPrice']['attributes']['amount'];
+				}
+			}
+		} else {
+			if (isset($films[$i]['im:price']['attributes']['amount'])) {
+				if(array_key_exists($films[$i]['im:price']['attributes']['currency'], $cost)) {
+					$cost[$films[$i]['im:price']['attributes']['currency']] += $films[$i]['im:price']['attributes']['amount'];
+				} else {
+					$cost[$films[$i]['im:price']['attributes']['currency']] = $films[$i]['im:price']['attributes']['amount'];
+				}
+			}
+		}
+	}
+	$retour = "";
+	foreach ($cost as $key => $value) {
+		$retour .= $value.' '.$key.' + ';
+	}
+	$retour = preg_replace('#.{3}$#', '', $retour);
+	return $retour;
+}
+
 echo "Top10 des films les plus vue : "."\n".topX($top, 10)."\n";
 echo "Rang du films \"Gravity\" : ".rang($top, "Gravity")."\n";
 echo 'Le nom du réalisateur de "The LEGO Movie" est : '.nomRealisateur($top, "The LEGO Movie")."\n";
@@ -428,5 +457,6 @@ echo 'Le film le plus récent est : '.lastFilm($top)."\n";
 echo 'Le film le plus ancien est : '.oldestFilm($top)."\n";
 echo 'La catégorie le plus vue est : '.categoryVueMax($top)."\n";
 echo 'Le réalisateur le plus zélé est : '.realisateurZele($top)."\n";
-
+echo 'Coût d\'achat du top 10 : '.topXCost($top, 10)."\n";
+echo 'Coût de location du top 10 : '.topXCost($top, 10, true)."\n";
 ?>
