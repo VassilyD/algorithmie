@@ -389,11 +389,17 @@ function categoryVueMax(array $films) {
 	return key($category).' ('.current($category).' films)';
 }
 
+/*
+*Paramètre d'entrée :
+*	$films = un tableau multidimensionnel associatif ^^ contenant le top 100 des films les plus vue et leurs info
+*
+*Sortie : Une chaine de caractère correspondant au nom du réalisateur ayant fait le plus de films ainsi que le nombre de films en question
+*/
 function realisateurZele(array $films) {
 	$realisateurs = [];
 	foreach ($films as $rang => $film) {
 		$realisateur = $film['im:artist']['label'];
-		/*if (preg_match('#&#', $realisateur)) {
+		if (preg_match('#&#', $realisateur)) {
 			$reals = explode("&", $realisateur);
 			foreach ($reals as $real) {
 				$real = trim($real);
@@ -403,7 +409,7 @@ function realisateurZele(array $films) {
 					$realisateurs[$real] = 1;
 				}
 			}
-		} else */if (array_key_exists($realisateur, $realisateurs)) {
+		} else if (array_key_exists($realisateur, $realisateurs)) {
 			$realisateurs[$realisateur]++;
 		} else {
 			$realisateurs[$realisateur] = 1;
