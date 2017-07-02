@@ -2,22 +2,39 @@
 // inclusion des fonctions (require est moin permissif que include et plante le script en cas d'erreur)
 require 'php99.php';
 
-
+/*
+Permet de choisir le niveau à tester
+Demande le niveau choisi tant que la réponse n'est pas valide
+*/
 function choixNiveau(Array $exitAnswers) {
+	// Affichage de la question
 	echo "quel niveau souhaitez vous tester? (1, 2 ou 3, q  ou 0 pour revenir au menu principale)"."\n";
+	// stocke l'entrée de l'utilisateur dans $niveau
+	// fgets(STDIN) permet de récupérer une saisie au clavier de l'utilisateur
+	// trim efface les espace en début et fin de chaine
+	// strtolower met la chaine de caractère en minuscule (facilite la comparaison qui elle est sensible à la casse)
 	$niveau = strtolower(trim(fgets(STDIN)));
 	echo "\n";
+	// si $niveau est un nombre et qu'il vaut 0, ou bien, si c'est une chaine de caractère et que sa valeur correspond à l'un des élément de $exitAnswers
 	if ((is_numeric($niveau) && $niveau == 0) || (is_string($niveau) && in_array($niveau, $exitAnswers))) {
+		// Alors on renvoie 0
 		return 0;
 	}
+
+	// Tant que $niveau est inférieur à 1 ou supérieur à 3
+	// équivalent à : Tant que $niveau n'est pas compris entre 1 et 3 (l'ensemble des réponse valide)
 	while ($niveau < 1 || $niveau > 3) {
+		// On reprécise l'ensemble des réponses attendue
 		echo "Veuillez entrer un chiffre entre 1 et 3 (q ou 0 pour revenir au menu principale)"."\n";
+		// On refait une saisie au clavier
 		$niveau = strtolower(trim(fgets(STDIN)));
 		echo "\n";
+		// On retest si il n'est pas question de sortir de l'exercice
 		if ((is_numeric($niveau) && $niveau == 0) || (is_string($niveau) && in_array($niveau, $exitAnswers))) {
 			return 0;
 		}
 	}
+	// on renvoie le niveau choisie
 	return $niveau;
 }
 
@@ -28,28 +45,41 @@ echo "Challenge php99"."\n";
 echo "Challenger : Vassily Dubois"."\n";
 
 $exitAnswers = ["q","quit", "quitter", "fin", "exit"]; // différente réponse possible pour sortir de la boucle principale
-$continuer = true;
+$continuer = true; // booléen servant à savoir quand continuer (true) et quand s'arreter (false)
 $question = "Quelle exercice voulez vous tester? (1 à 7, q ou 0 pour quitter)"."\n";
 
+// Tant que $continuer vaut true
 while ($continuer) {
 	echo $question;
+	// stocke l'entrée de l'utilisateur dans $reponse
+	// fgets(STDIN) permet de récupérer une saisie au clavier de l'utilisateur
+	// trim efface les espace en début et fin de chaine
+	// strtolower met la chaine de caractère en minuscule (facilite la comparaison qui elle est sensible à la casse)
 	$reponse = strtolower(trim(fgets(STDIN)));
 	echo "\n";
+	// Si la réponse esyt un nombre
 	if (is_numeric($reponse)) {
 		switch ($reponse) {
+			// Cas où $réponse vaut 0
 			case '0':
+				// 0 correspont à quitter donc on met $continuer à false ce qui nous sort de la boucle while
 				$continuer = false;
 				break;
 
+			// Cas où $réponse vaut 1
 			case '1':
+				// boucle infinie (on en sort avec un break)
 				while (true) {
 					// Demande le niveau souhaité
 					$niveau = choixNiveau($exitAnswers);
+					// Si on choisie de quitter alors break nous sort de la boucle while
 					if ($niveau == 0) {
 						break;
 					}
 					else {
+						// En fonctino de la valeur de $niveau, différentes actions sont possible
 						switch ($niveau) {
+							// Cas où $niveau vaut 1
 							case '1':
 								$masterTab = ["t-shirt", "pantalon"];
 								$suffixeTab = ["bleu", "rouge", "vert"];
@@ -58,6 +88,7 @@ while ($continuer) {
 								echo "résultat de la fusion : ".tabToString(exercice1($masterTab, $suffixeTab))."\n\n";
 								break;
 							
+							// Cas où $niveau vaut 2
 							case '2':
 								$masterTab = ["poulet", "boeuf", ""];
 								$suffixeTab = ["à point", "saignant", "bleu", "bien cuit"];
@@ -66,6 +97,7 @@ while ($continuer) {
 								echo "résultat de la fusion : ".tabToString(exercice1($masterTab, $suffixeTab))."\n\n";
 								break;
 							
+							// Cas où $niveau vaut 3
 							case '3':
 								// En attandant l'implémentation du niveau
 								echo "Désolé ce niveau n'est pas encore implémenté..."."\n\n";
@@ -73,6 +105,7 @@ while ($continuer) {
 								
 								break;
 							
+							// Cas où $niveau ne vaut aucune des valeur précédentes
 							default:
 								# code...
 								break;
