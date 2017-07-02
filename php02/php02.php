@@ -262,10 +262,10 @@ function nbFilmsDate(array $films, int $date) {
 *Sortie : Une chaine de caractère correspondant au titre du film le plus récent et sa date de sortie
 */
 function lastFilm(array $films) {
-	$indexLast = 0;
+	$rangLast = 0;
 	$date = [0, 0, 0];
 	$mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-	foreach ($films as $key => $film) {
+	foreach ($films as $rang => $film) {
 		// On vérifie d'abords que l'élément existe
 		// Ensuite on vérifie qyue ce soit une chaine de caractère
 		// Et enfin on vérifie que le format corresponde
@@ -282,8 +282,12 @@ function lastFilm(array $films) {
 					(($match[2] > $date[1]) || 
 					(($match[2] == $date[1]) && 
 						($match[3] > $date[2]))))) {
-				$indexLast = $key;
+				$rangLast = $rang;
 				foreach ($date as $key => &$value) {
+					// On mets à jour la date du plus ancien film
+					// On peut affecter les valeur directement à $value car il est passer par référencement (grace au & coller devant la variable)
+					// Cela signifie qu'au lieu de copier les différent éléments de $date dans $value, on fait pointer $value vers la zone mémoire des éléments de $date
+					// sans le & $value pointe vers une zone mémoire qui lui est propre, avec le & $value pointe vers la zone mémoire de l'éléments parcourue
 					$value = $match[$key+1];
 					// Ce qui équivaut à : $date[$key] = $match[$key+1];
 				}
@@ -294,21 +298,21 @@ function lastFilm(array $films) {
 			}
 			/* ceci est l'équivalent du if précédent mais sans l'utilisation de OR et de AND
 			if ($match[1] > $date[0]) {
-				$indexOldest = $index;
+				$rangLast = $rang;
 				foreach ($date as $key => &$value) {
 					$value = intval($match[$key+1]);
 				}
 			}
 			else if ($match[1] == $date[0]) {
 				if ($match[2] > $date[1]) {
-					$indexOldest = $index;
+					$rangLast = $rang;
 					foreach ($date as $key => &$value) {
 						$value = intval($match[$key+1]);
 					}
 				}
 				else if ($match[2] == $date[1]) {
 					if ($match[3] > $date[2]) {
-						$indexOldest = $index;
+						$rangLast = $rang;
 						foreach ($date as $key => &$value) {
 							$value = intval($match[$key+1]);
 						}
@@ -319,7 +323,7 @@ function lastFilm(array $films) {
 			*/
 		}
 	}
-	return ''.$films[$indexLast]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
+	return ''.$films[$rangLast]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
 }
 
 /*
@@ -329,10 +333,10 @@ function lastFilm(array $films) {
 *Sortie : Une chaine de caractère correspondant au titre du film le plus ancien et sa date de sortie
 */
 function oldestFilm(array $films) {
-	$indexOldest = 0;
+	$rangOldest = 0;
 	$date = [9999, 99, 99];
 	$mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
-	foreach ($films as $index => $film) {
+	foreach ($films as $rang => $film) {
 		// On vérifie d'abords que l'élément existe
 		// Ensuite on vérifie qyue ce soit une chaine de caractère
 		// Et enfin on vérifie que le format corresponde
@@ -349,7 +353,7 @@ function oldestFilm(array $films) {
 					(($match[2] < $date[1]) || 
 					(($match[2] == $date[1]) && 
 						($match[3] < $date[2]))))) {
-				$indexOldest = $index;
+				$rangOldest = $rang;
 				foreach ($date as $key => &$value) {
 					// On mets à jour la date du plus ancien film
 					// On peut affecter les valeur directement à $value car il est passer par référencement (grace au & coller devant la variable)
@@ -360,7 +364,29 @@ function oldestFilm(array $films) {
 			}
 		}
 	}
-	return ''.$films[$indexOldest]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
+	// Retourne "[titre du film] sortie le JJ mois YYYY"
+	return ''.$films[$rangOldest]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
+}
+
+/*
+*Paramètre d'entrée :
+*	$films = un tableau multidimensionnel associatif ^^ contenant le top 100 des films les plus vue et leurs info
+*
+*Sortie : Une chaine de caractère correspondant à la catégorie la plus vue et au nombre de film correspondant
+*/
+function categoryVueMax(array $films) {
+	$category = [];
+	foreach ($films as $rang => $film) {
+		$cat = $film['category']['attributes']['label'];
+		if (array_key_exists($cat, $category)) {
+			$category[$cat]++;
+		} else {
+			$category[$cat] = 1;
+		}
+	}
+	arsort($category);
+	reset($category);
+	return key($category).' ('.current($category).' films)';
 }
 
 echo "Top10 des films les plus vue : "."\n".topX($top, 10)."\n";
@@ -369,6 +395,7 @@ echo 'Le nom du réalisateur de "The LEGO Movie" est : '.nomRealisateur($top, "T
 echo 'Il y a '.nbFilmsDate($top, 2000).' films sortie avant l\'an 2000'."\n";
 echo 'Le film le plus récent est : '.lastFilm($top)."\n";
 echo 'Le film le plus ancien est : '.oldestFilm($top)."\n";
+echo 'La catégorie le plus vue est : '.categoryVueMax($top)."\n";
 
 //2009-11-24T00:00:00-07:00
 //(19[5-9][0-9]|20[01][0-9]) année
