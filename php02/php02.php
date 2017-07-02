@@ -246,7 +246,7 @@ function nomRealisateur(array $films, string $titre, bool $casse = true) {
 function nbFilmsDate(array $films, int $date) {
 	$compteur = 0;
 	foreach ($films as $i => $film) {
-		if (isset($films[$i]['im:releaseDate']['label']) && is_string($films[$i]['im:releaseDate']['label']) && preg_match('#^([0-9]{4})#', $films[$i]['im:releaseDate']['label'], $match)) {
+		if (isset($film['im:releaseDate']['label']) && is_string($film['im:releaseDate']['label']) && preg_match('#^([0-9]{4})#', $film['im:releaseDate']['label'], $match)) {
 			if ($match[1] < $date) {
 				$compteur++;
 			}
@@ -255,9 +255,125 @@ function nbFilmsDate(array $films, int $date) {
 	return $compteur;
 }
 
+/*
+*Paramètre d'entrée :
+*	$films = un tableau multidimensionnel associatif ^^ contenant le top 100 des films les plus vue et leurs info
+*
+*Sortie : Une chaine de caractère correspondant au titre du film le plus récent et sa date de sortie
+*/
+function lastFilm(array $films) {
+	$indexLast = 0;
+	$date = [0, 0, 0];
+	$mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+	foreach ($films as $key => $film) {
+		// On vérifie d'abords que l'élément existe
+		// Ensuite on vérifie qyue ce soit une chaine de caractère
+		// Et enfin on vérifie que le format corresponde
+		//		d'abord l'année avec (19[5-9][0-9]|20[01][0-9]) qui correspond à n'importe quel entier entre 1950 et 2019
+		//		puis le mois avec (0[1-9]|1[0-2]) qui correspond à n'importe quel entier entre 01 et 12
+		//		et enfin le jour avec ([0-2][0-9]|3[01]) qui correspond à n'importe quel entier entre 01 et 31
+		if (isset($film['im:releaseDate']['label']) && is_string($film['im:releaseDate']['label']) && preg_match('#^(19[5-9][0-9]|20[01][0-9])-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T#', $film['im:releaseDate']['label'], $match)) {
+			// On test d'abord si l'année de sortie est supérieur au plus récent
+			// Sinon si elle est égale
+			//		Soit le mois est supérieur
+			//		Soit le mois est égale et le jour est supérieur
+			if (($match[1] > $date[0]) || 
+				(($match[1] == $date[0]) && 
+					(($match[2] > $date[1]) || 
+					(($match[2] == $date[1]) && 
+						($match[3] > $date[2]))))) {
+				$indexLast = $key;
+				foreach ($date as $key => &$value) {
+					$value = $match[$key+1];
+					// Ce qui équivaut à : $date[$key] = $match[$key+1];
+				}
+				// voila ce que fais la boucle foreach précédente
+				//$date[0] = $match[1];
+				//$date[1] = $match[2];
+				//$date[2] = $match[3];
+			}
+			/* ceci est l'équivalent du if précédent mais sans l'utilisation de OR et de AND
+			if ($match[1] > $date[0]) {
+				$indexOldest = $index;
+				foreach ($date as $key => &$value) {
+					$value = intval($match[$key+1]);
+				}
+			}
+			else if ($match[1] == $date[0]) {
+				if ($match[2] > $date[1]) {
+					$indexOldest = $index;
+					foreach ($date as $key => &$value) {
+						$value = intval($match[$key+1]);
+					}
+				}
+				else if ($match[2] == $date[1]) {
+					if ($match[3] > $date[2]) {
+						$indexOldest = $index;
+						foreach ($date as $key => &$value) {
+							$value = intval($match[$key+1]);
+						}
+					}
+				}
+
+			}
+			*/
+		}
+	}
+	return ''.$films[$indexLast]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
+}
+
+/*
+*Paramètre d'entrée :
+*	$films = un tableau multidimensionnel associatif ^^ contenant le top 100 des films les plus vue et leurs info
+*
+*Sortie : Une chaine de caractère correspondant au titre du film le plus ancien et sa date de sortie
+*/
+function oldestFilm(array $films) {
+	$indexOldest = 0;
+	$date = [9999, 99, 99];
+	$mois = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin', 'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre'];
+	foreach ($films as $index => $film) {
+		// On vérifie d'abords que l'élément existe
+		// Ensuite on vérifie qyue ce soit une chaine de caractère
+		// Et enfin on vérifie que le format corresponde
+		//		d'abord l'année avec (19[5-9][0-9]|20[01][0-9]) qui correspond à n'importe quel entier entre 1950 et 2019
+		//		puis le mois avec (0[1-9]|1[0-2]) qui correspond à n'importe quel entier entre 01 et 12
+		//		et enfin le jour avec ([0-2][0-9]|3[01]) qui correspond à n'importe quel entier entre 01 et 31
+		if (isset($film['im:releaseDate']['label']) && is_string($film['im:releaseDate']['label']) && preg_match('#^(19[5-9][0-9]|20[01][0-9])-(0[1-9]|1[0-2])-([0-2][0-9]|3[01])T#', $film['im:releaseDate']['label'], $match)) {
+			// On test d'abord si l'année de sortie est inférieur au plus ancien
+			// Sinon si elle est égale
+			//		Soit le mois est inférieur
+			//		Soit le mois est égale et le jour est inférieur
+			if (($match[1] < $date[0]) || 
+				(($match[1] == $date[0]) && 
+					(($match[2] < $date[1]) || 
+					(($match[2] == $date[1]) && 
+						($match[3] < $date[2]))))) {
+				$indexOldest = $index;
+				foreach ($date as $key => &$value) {
+					// On mets à jour la date du plus ancien film
+					// On peut affecter les valeur directement à $value car il est passer par référencement (grace au & coller devant la variable)
+					// Cela signifie qu'au lieu de copier les différent éléments de $date dans $value, on fait pointer $value vers la zone mémoire des éléments de $date
+					// sans le & $value pointe vers une zone mémoire qui lui est propre, avec le & $value pointe vers la zone mémoire de l'éléments parcourue
+					$value = intval($match[$key+1]);
+				}
+			}
+		}
+	}
+	return ''.$films[$indexOldest]['im:name']['label'].', sortie le '.$date[2].' '.$mois[$date[1] - 1].' '.$date[0];
+}
+
 echo "Top10 des films les plus vue : "."\n".topX($top, 10)."\n";
 echo "Rang du films \"Gravity\" : ".rang($top, "Gravity")."\n";
 echo 'Le nom du réalisateur de "The LEGO Movie" est : '.nomRealisateur($top, "The LEGO Movie")."\n";
 echo 'Il y a '.nbFilmsDate($top, 2000).' films sortie avant l\'an 2000'."\n";
+echo 'Le film le plus récent est : '.lastFilm($top)."\n";
+echo 'Le film le plus ancien est : '.oldestFilm($top)."\n";
 
+//2009-11-24T00:00:00-07:00
+//(19[5-9][0-9]|20[01][0-9]) année
+//(0[1-9]|1[0-2]) mois
+//([0-2][0-9]|3[01]) jour
+//A> ou A<= et M> ou A<= et M<= et J>
+//A< ou A= et (M< ou M= et J<)
 ?>
