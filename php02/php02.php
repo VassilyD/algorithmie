@@ -389,6 +389,31 @@ function categoryVueMax(array $films) {
 	return key($category).' ('.current($category).' films)';
 }
 
+function realisateurZele(array $films) {
+	$realisateurs = [];
+	foreach ($films as $rang => $film) {
+		$realisateur = $film['im:artist']['label'];
+		/*if (preg_match('#&#', $realisateur)) {
+			$reals = explode("&", $realisateur);
+			foreach ($reals as $real) {
+				$real = trim($real);
+				if (array_key_exists($real, $realisateurs)) {
+					$realisateurs[$real]++;
+				} else {
+					$realisateurs[$real] = 1;
+				}
+			}
+		} else */if (array_key_exists($realisateur, $realisateurs)) {
+			$realisateurs[$realisateur]++;
+		} else {
+			$realisateurs[$realisateur] = 1;
+		}
+	}
+	arsort($realisateurs);
+	reset($realisateurs);
+	return key($realisateurs).' ('.current($realisateurs).' films)';
+}
+
 echo "Top10 des films les plus vue : "."\n".topX($top, 10)."\n";
 echo "Rang du films \"Gravity\" : ".rang($top, "Gravity")."\n";
 echo 'Le nom du réalisateur de "The LEGO Movie" est : '.nomRealisateur($top, "The LEGO Movie")."\n";
@@ -396,11 +421,6 @@ echo 'Il y a '.nbFilmsDate($top, 2000).' films sortie avant l\'an 2000'."\n";
 echo 'Le film le plus récent est : '.lastFilm($top)."\n";
 echo 'Le film le plus ancien est : '.oldestFilm($top)."\n";
 echo 'La catégorie le plus vue est : '.categoryVueMax($top)."\n";
+echo 'Le réalisateur le plus zélé est : '.realisateurZele($top)."\n";
 
-//2009-11-24T00:00:00-07:00
-//(19[5-9][0-9]|20[01][0-9]) année
-//(0[1-9]|1[0-2]) mois
-//([0-2][0-9]|3[01]) jour
-//A> ou A<= et M> ou A<= et M<= et J>
-//A< ou A= et (M< ou M= et J<)
 ?>
