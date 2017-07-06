@@ -70,11 +70,24 @@ function nbTrailingZeroes(Int $nombre){
 	return $nb0;
 }
 
+// La même en version récurrente
+function nb0TailR(Int $n) {
+	if ($n % 10 != 0 or $n < 10) return 0;
+	else return (1 + nb0TailR($n/10));
+}
+function nbTrailingZeroesR(Int $nombre){
+	if ($nombre < 5 or $nombre > 20) return 0;
+	else return nb0TailR(fact($nombre));
+}
+
 /*
 echo GenerateTableNote(["john" => [10,12,15,19], "michel" => [3, 15, 6, 19], "bernard"=>[3,5,9], "pascal"=>[12,16,9,18]]);
 echo fact(5)."\n";
 for ($i=0; $i < 21; $i++) { 
 	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroes($i).' zéro'."\n";
+}
+for ($i=0; $i < 21; $i++) { 
+	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroesR($i).' zéro'."\n";
 }
 */
 ?>
