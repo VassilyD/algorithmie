@@ -70,10 +70,11 @@ function nbTrailingZeroes(Int $nombre){
 	return $nb0;
 }
 
-
+/*
 echo GenerateTableNote(["john" => [10,12,15,19], "michel" => [3, 15, 6, 19], "bernard"=>[3,5,9], "pascal"=>[12,16,9,18]]);
 echo fact(5)."\n";
 for ($i=0; $i < 21; $i++) { 
 	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroes($i).' zéro'."\n";
 }
+*/
 ?>
