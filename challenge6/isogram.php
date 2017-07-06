@@ -10,13 +10,21 @@ function isIsogram(string $phrase) {
 	if ($phrase == null or $phrase == "") return false;
 	if (is_numeric($phrase)) return false;
 
-	$taille = strlen($phrase);
 	$occurence = [];
+	$separation = [" ", "-"];
+	$phrase = str_replace($separation, "", $phrase);
+	$phrase = strtolower($phrase);
+	$taille = strlen($phrase);
 	for($i = 0; $i < $taille; $i++) {
-		$lettre = strtolower($phrase[$i]);
+		//echo $phrase[$i]." ";
+		$lettre = ord($phrase[$i]);
+		//echo $lettre."\n";
 		if(isset($occurence[$lettre])) $occurence[$lettre]++;
 		else $occurence[$lettre] = 1;
 	}
+	unset($occurence[195]);
+	$occurence = array_values($occurence);
+	//print_r($occurence);
 
 	$taille = count($occurence);
 	$i = 0;
@@ -31,7 +39,7 @@ function isIsogram(string $phrase) {
 }
 
 
-$test = ["duplicates", "eleven", "subdermatoglyphic", "Alphabet", 'thumbscrew-japingly', 'Hjelmqvist-Gryb-Zock-Pfund-Wax', 'Heizölrückstoßabdämpfung', 'the quick brown fox', 'Emily Jung Schwartzkopf', 'éléphant'];
+$test = ["duplicates", "eleven", "subdermatoglyphic", "Alphabet", 'thumbscrew-japingly', 'Hjelmqvist-Gryb-Zock-Pfund-Wax', 'Heizölrückstoßabdämpfung', 'the quick brown fox', 'Emily Jung Schwartzkopf', 'éléphant', 'papa'];
 foreach ($test as $value) {
 	if (isIsogram($value)) echo 'Yoloooooo'."\n";
 	else echo "Bad triiiip\n";
