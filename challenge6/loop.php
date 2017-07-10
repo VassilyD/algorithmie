@@ -84,7 +84,7 @@ function fourchette() {
 	}
 }
 
-//echo nNombre(1, 100);
+echo nNombre(1, 20);
 //echo plusGrandGap([0,6,4,8,9,5,13,2,4,12])."\n";
 //fourchette();
 ?>
