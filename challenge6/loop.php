@@ -24,6 +24,7 @@ function nNombre(Int $debut, Int $fin) {
 		} else {
 			$style .= 'color: orange;';
 		}
+
 		$liste .= "\t".'<li style="'.$style.'">'.$i.'</li>'."\n";
 	}
 	$liste .= '</ul>'."\n";
@@ -73,7 +74,7 @@ function fourchette() {
 		} else {
 			$guessed = true;
 		}
-		if (!$guessed) $passe++;
+		$passe++;
 
 	} while ($passe < 8 && !$guessed);
 
@@ -84,7 +85,7 @@ function fourchette() {
 	}
 }
 
-echo nNombre(1, 20);
+//echo nNombre(1, 20);
 //echo plusGrandGap([0,6,4,8,9,5,13,2,4,12])."\n";
 //fourchette();
 ?>
