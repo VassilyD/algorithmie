@@ -114,15 +114,25 @@ function moveFilesByExtension(String $source, String $cible = '', Bool $copy = t
 
 	return true;
 }
+do {
+	echo 'Entrez le chemin du dossier source :'."\n";
+	$source = trim(fgets(STDIN));
+} while (!preg_match('#^(/|(/[[:alnum:]-_]+)+/?)$#', $source) or !is_dir($source));
+$source = preg_replace('#/?$#', '', $source);
 
-echo 'Entrez le chemin du dossier source :'."\n";
-$source = trim(fgets(STDIN));
-echo 'Entrez le chemin du dossier cible (laisser vide si pareil que la source) :'."\n";
-$cible = trim(fgets(STDIN));
-echo 'Voulez vous déplacer (0) ou copier (1) les fichiers :'."\n";
-$copy = trim(fgets(STDIN));
+do {
+	echo 'Entrez le chemin du dossier cible (laisser vide si pareil que la source) :'."\n";
+	$cible = trim(fgets(STDIN));
+} while (!preg_match('#^(/|(/[[:alnum:]-_]+)+/?)$#', $cible) or !is_dir(preg_replace('#/[[:alnum:]-_]+/?$#', '', $cible)));
+$cible = preg_replace('#/?$#', '', $cible);
+
+do {
+	echo 'Voulez vous déplacer (0) ou copier (1) les fichiers :'."\n";
+	$copy = trim(fgets(STDIN));
+} while ($copy != '0' && $copy != '1');
 if ($copy == '0') $copy = false;
 else $copy = true;
+
 if(!moveFilesByExtension($source, $cible, $copy)) echo 'Une erreur est survenue'."\n";
 else {
 	if ($copy) echo 'Copie effectuer avec succès'."\n";
