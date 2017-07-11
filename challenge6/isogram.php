@@ -39,9 +39,9 @@ function isIsogram(string $phrase) {
 }
 
 
-$test = ["duplicates", "eleven", "subdermatoglyphic", "Alphabet", 'thumbscrew-japingly', 'Hjelmqvist-Gryb-Zock-Pfund-Wax', 'Heizölrückstoßabdämpfung', 'the quick brown fox', 'Emily Jung Schwartzkopf', 'éléphant', 'papa'];
+/*$test = ["duplicates", "eleven", "subdermatoglyphic", "Alphabet", 'thumbscrew-japingly', 'Hjelmqvist-Gryb-Zock-Pfund-Wax', 'Heizölrückstoßabdämpfung', 'the quick brown fox', 'Emily Jung Schwartzkopf', 'éléphant', 'papa'];
 foreach ($test as $value) {
 	if (isIsogram($value)) echo 'Yoloooooo'."\n";
 	else echo "Bad triiiip\n";
-}
+}*/
 ?>
