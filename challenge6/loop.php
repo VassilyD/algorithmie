@@ -84,6 +84,20 @@ function fourchette() {
 		echo 'désolé, le nombre était '.$secret."\n";;
 	}
 }
+function fourchetteWeb(Int $secret, Int $essai, Int $passe = 0) {
+	if ($essai == $secret) {
+		return 'bravo, vous avez trouvé en '.$passe.' essai(s)';
+	}
+	else if ($passe == 8) {
+		return 'désolé, le nombre était '.$secret;
+	}
+	else if ($essai > $secret) {
+		return 'nombre donné trop grand';
+	}
+	else if ($essai < $secret) {
+		return 'nombre donné trop petit';
+	}
+}
 
 //echo nNombre(1, 20);
 //echo plusGrandGap([0,6,4,8,9,5,13,2,4,12])."\n";

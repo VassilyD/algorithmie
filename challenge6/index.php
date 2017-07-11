@@ -19,41 +19,36 @@
 	<nav class="navbar navbar-fixed-top">
 		<div class="container-fluid">
 			<ul class="nav navbar-nav">
-				<li class=" dropdown">
+				<li class="<?php if ($_GET['p'] == 'loop') echo 'active';?> dropdown">
 					<a class="dropdown-toggle" data-toggle="dropdown" href="#">Loop <span class="caret"></span></a>
 					<ul class="dropdown-menu">
-						<li><a href="">1 : n nombre</a></li>
-						<li><a href="">2 : grand gap</a></li>
-						<li><a href="">3 : fourchette</a></li>
+						<li><a href="?p=loop&sp=exo1">1 : n nombre</a></li>
+						<li><a href="?p=loop&sp=exo2">2 : grand gap</a></li>
+						<li><a href="?p=loop&sp=exo3">3 : fourchette</a></li>
 					</ul>
 				</li>
-				<li class="">
-					<a class="" href="#">Caesar</a>
+				<li class="<?php if ($_GET['p'] == 'caesar') echo 'active';?>">
+					<a class="" href="?p=caesar">Caesar</a>
 				</li>
-				<li class="">
-					<a class="" href="#">Folders</a>
+				<li class="<?php if ($_GET['p'] == 'folders') echo 'active';?>">
+					<a class="" href="?p=folders">Folders</a>
 				</li>
-				<li class="">
-					<a class="" href="#">Isogram</a>
+				<li class="<?php if ($_GET['p'] == 'isogram') echo 'active';?>">
+					<a class="" href="?p=isogram">Isogram</a>
 				</li>
-				<li class="">
-					<a class="" href="#">Pangram</a>
+				<li class="<?php if ($_GET['p'] == 'pangram') echo 'active';?>">
+					<a class="" href="?p=pangram">Pangram</a>
 				</li>
 			</ul>
 		</div>
 	</nav>
-
-
-  <div class="container-fluid">
-    <form action="?p=loop&sp=exo3" method="post">
-      <input type="hidden" id="secret" value="21">
-      <input type="hidden" id="passe" value="0">
-      <input type="hidden" id="ingame" value="true">
-      <button type="submit" class="btn btn-default">Commencer</button>
-    </form>
-  </div>
-  <div class="container-fluid reponse">
-      </div>
+<?php
+$_GET['p'] = 'loop';
+if (isset($_GET['p'])) {
+	$page = 'assets/pages/'.$_GET['p'].'.php';
+	require $page;
+}
+?>
 
 </body>
 
