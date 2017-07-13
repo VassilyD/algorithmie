@@ -46,7 +46,7 @@ function factR(Int $n) {
 	** CQFD
 	*/
 	if ($n == 1) return 1;
-	else return ($n * fact($n - 1));
+	else return ($n * factR($n - 1));
 }
 function fact(Int $nombre ) {
 	if ($nombre < 1 or $nombre > 20) return 1;

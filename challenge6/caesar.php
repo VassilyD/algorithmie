@@ -22,7 +22,7 @@ function chiffrement(String $texte, int $k) {
 		// si c'est un chiffre
 		} else if ($ascii >= 48 && $ascii <= 57) {
 			$texte[$i] = chr(decale($ascii, $k, 48, 10));
-		// si c'est un chiffre
+		// si c'est un caractère spécial
 		} else if ($ascii >= 128 && $ascii <= 165) {
 			$texte[$i] = chr(decale($ascii, $k, 128, 38));
 		}
@@ -49,7 +49,7 @@ function dechiffrement(String $texte, int $k) {
 		// si c'est un chiffre
 		} else if ($ascii >= 48 && $ascii <= 57) {
 			$texte[$i] = chr(decale($ascii, -$k, 48, 10));
-		// si c'est un chiffre
+		// si c'est un caractère spécial
 		} else if ($ascii >= 128 && $ascii <= 165) {
 			$texte[$i] = chr(decale($ascii, -$k, 128, 38));
 		}
@@ -57,6 +57,9 @@ function dechiffrement(String $texte, int $k) {
 	return $texte;
 }
 
+/****************************add slash here --|
+**  Main loop. uncomment to use in cli mode **v
+**********************************************
 $continuer = true;
 do {
 	echo 'Texte à travailler :'."\n";
@@ -74,7 +77,10 @@ do {
 	if (preg_match('#^y#i', $continuer)) $continuer = true;
 	else $continuer = false;
 } while ($continuer);
+//*/
+//**************** /Main *********************
 
-echo 'Voila 1 phrase de texte à décoder ^^!'."\n";
-echo dechiffrement(chiffrement('Voila 1 phrase de texte à décoder ^^!', 11), 11)."\n";
+
+//echo 'Voila 1 phrase de texte à décoder ^^!'."\n";
+//echo dechiffrement(chiffrement('Voila 1 phrase de texte à décoder ^^!', 11), 11)."\n";
 ?>
