@@ -131,7 +131,7 @@ function getPos(Int $ligne) {
 }
 
 function isSpace(Int $l, Int $p) {
-	if($l <= 2 && $p <= $l) return false;
+	if($p == 1 || $p == $l) return false;
 	$pos = getPos($l);
 	if($p > $pos && $p <= $l - $pos) return true;
 	else {
