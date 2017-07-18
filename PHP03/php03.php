@@ -80,14 +80,25 @@ function nbTrailingZeroesR(Int $nombre){
 	else return nb0TailR(fact($nombre));
 }
 
-/*
+// La même d'une autre façon (tentative refactoring ^^)
+function nbTrailingZeroes2(Int $nombre){
+	if ($nombre < 5 or $nombre > 20) return 0;
+	preg_match('#(0*)$#', fact($nombre), $retour);
+	return strlen($retour[1]);
+}
+
+
+/****************************add slash here --|
+**  Main loop. uncomment to use in cli mode **v
+**********************************************
 echo GenerateTableNote(["john" => [10,12,15,19], "michel" => [3, 15, 6, 19], "bernard"=>[3,5,9], "pascal"=>[12,16,9,18]]);
 echo fact(5)."\n";
 for ($i=0; $i < 21; $i++) { 
-	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroes($i).' zéro'."\n";
+	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroes2($i).' zéro'."\n";
 }
-for ($i=0; $i < 21; $i++) { 
+/*for ($i=0; $i < 21; $i++) { 
 	echo 'fact('.$i.') = '.fact($i).' ce qui donne '.nbTrailingZeroesR($i).' zéro'."\n";
 }
-*/
+//*/
+//**************** /Main *********************
 ?>

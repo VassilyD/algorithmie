@@ -10,7 +10,7 @@ while(true) {
 	$i++;
 }
 echo (2142 & 11325)."\n";*/
-
+/*
 function isPowerOf2(Int $n) {
 	$two = 2;
 	while($n > $two) {
@@ -44,13 +44,13 @@ function prepareLigne(Int $j, Int $n, Int $m = 0) {
 $j = 1;
 $n = 1;
 $p = 2;
-while (true) {
+while (true) {*/
 	/*for($i1 = 0; $i1 < $n; $i1++) {
 
 		$c = ($i % 2 == 0)?'@':' ';
 		echo $c;
 	}*/
-	for($i = 1; $i <= $j && $i < 75; $i++) {
+	/*for($i = 1; $i <= $j && $i < 75; $i++) {
 		$l = $j - $p/2;
 		if(	$i == 1 || 
 			$i == $j || 
@@ -77,7 +77,40 @@ function triSper(Int $l, Int $n) {
 		return triSper($l, $n-1).triSper($l, $n-1);
 	}
 }
+*/
+$triangle = [];
+$triangle[] = '@';
+$i = 0;
+$p = 1;
+while(true) {
+	echo $triangle[$i]."\n";
+	$i++;
+	if($i == $p) {
+		$p *= 2;
+		$temp = [];
+		foreach ($triangle as &$ligne) {
+			$temp[] = $ligne.$ligne;
+			//for($j = 0; $j < $i; $j++) {
+			//	$ligne .= ' ';
+			//}
+			$ligne = str_pad($ligne, $i*2);
+		}
+		$triangle = array_merge($triangle, $temp);
 
+		foreach ($triangle as &$ligne) {
+			if(strlen($ligne) >= 270) $ligne = substr($ligne, 0, 270);
+		}
+
+		if ($i >= 512) {
+			unset($triangle);
+			$triangle = [];
+			$triangle[] = '@';
+			$i = 0;
+			$p = 1;
+		}
+	}
+	usleep(100000);
+}
 /**
 $j - $p/2
 isPowerOf2($l)
