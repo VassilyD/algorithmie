@@ -145,9 +145,9 @@ $c = '%';
 $l = 1;
 $n = 1;
 while(true) {
-	if($l % 7 != 0) {
+	if($l % 1 == 0) {
 		for($i = 1; $i <= $l && $i <= 270; $i++) {
-			if($i % 3 != 0) echo (isSpace($l, $i))?' ':chr(rand(33,127));
+			if($i % 1 == 0) echo (isSpace($l, $i))?' ':chr(rand(33,127));
 			else echo ' ';
 		}
 	}
