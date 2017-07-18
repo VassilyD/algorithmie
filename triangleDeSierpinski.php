@@ -116,13 +116,14 @@ while(true) {
 	}
 	usleep(100000);
 }
+// non mais euuuuuh
 //*/
 
 
 
-/***********************************
+/************************************
 ***  Version finale Pouvant s'adapter facilement à des triangle de grande taille \o/
-************************************/
+*************************************/
 function getPos(Int $ligne) {
 	$n = 1;
 	while($n < $ligne) $n *= 2;
