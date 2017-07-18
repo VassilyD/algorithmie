@@ -1,5 +1,8 @@
 <?php
-/*$i = 0;
+/************************************
+**** Suite d'essais infructueux *****
+*************************************
+$i = 0;
 while(true) {
 	$j = 0;
 	while($j < $i) {
@@ -77,7 +80,12 @@ function triSper(Int $l, Int $n) {
 		return triSper($l, $n-1).triSper($l, $n-1);
 	}
 }
-*/
+//*/
+
+/************************************
+******** Première réussite **********
+** Mais peut s'avéré gourmande en mémoire sur un très grand triangle
+*************************************
 $triangle = [];
 $triangle[] = '@';
 $i = 0;
@@ -90,9 +98,6 @@ while(true) {
 		$temp = [];
 		foreach ($triangle as &$ligne) {
 			$temp[] = $ligne.$ligne;
-			//for($j = 0; $j < $i; $j++) {
-			//	$ligne .= ' ';
-			//}
 			$ligne = str_pad($ligne, $i*2);
 		}
 		$triangle = array_merge($triangle, $temp);
@@ -111,7 +116,46 @@ while(true) {
 	}
 	usleep(100000);
 }
+//*/
+
+
+
+/***********************************
+***  Version finale Pouvant s'adapter facilement à des triangle de grande taille \o/
+************************************/
+function getPos(Int $ligne) {
+	$n = 1;
+	while($n < $ligne) $n *= 2;
+	return $ligne - $n/2;
+}
+
+function isSpace(Int $l, Int $p) {
+	if($l <= 2 && $p <= $l) return false;
+	$pos = getPos($l);
+	if($p > $pos && $p <= $l - $pos) return true;
+	else {
+		if ($p <= $pos) return isSpace($pos, $p);
+		else return isSpace($pos, ($p - ($l - $pos)));
+	}
+}
+
+$ctab = ['@', '*', '+', '^', '°', '\\', '/', '='];
+$c = '%';
+$l = 1;
+$n = 1;
+while(true) {
+	for($i = 1; $i <= $l && $i <= 270; $i++) {
+		echo (isSpace($l, $i))?' ':chr(rand(33,127));
+	}
+	usleep(100000);
+	echo "\n";
+	$l++;
+	if($l > pow(2, $n-1)) $n++;
+}
+// */
 /**
+$ctab[$n%8]
+chr(rand(33,127))
 $j - $p/2
 isPowerOf2($l)
 @   
