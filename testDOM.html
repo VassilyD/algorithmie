@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+	<img src="a.jpg" alt="lalala" onclick="mySwitch()">
+
+	<script type="text/javascript">
+		function mySwitch() {
+			var elem = document.getElementsByTagName("img")[0];
+			if(elem.alt == 'lalala') {
+				elem.src = "b.png";
+				elem.alt = "lilili";
+			}
+			else {
+				elem.src = "a.jpg";
+				elem.alt = "lalala";
+			}
+		}
+	</script>
+</body>
+</html>

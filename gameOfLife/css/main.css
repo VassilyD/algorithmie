@@ -1,0 +1,12 @@
+.dead, .alive {
+	width: 10px;
+	height: 10px;
+}
+
+.dead {
+	background-color: black;
+}
+
+.alive {
+	background-color: white;
+}

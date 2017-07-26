@@ -141,14 +141,15 @@ function isSpace(Int $l, Int $p) {
 }
 
 $ctab = ['@', '*', '+', '^', '°', '\\', '/', '='];
-$c = '%';
+$c = '\\';
 $l = 1;
 $n = 1;
 while(true) {
 	if($l % 1 == 0) {
-		for($i = 1; $i <= $l && $i <= 270; $i++) {
-			if($i % 1 == 0) echo (isSpace($l, $i))?' ':chr(rand(33,127));
+		for($i = 1; $i <= $l && $i <= 128; $i++) {
+			if($i % 1 == 0) echo (isSpace($l, $i))?' ':$c;
 			else echo ' ';
+			//else echo ' ';
 		}
 	}
 	usleep(100000);
