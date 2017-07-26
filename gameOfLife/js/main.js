@@ -13,6 +13,7 @@ function genTable(x = 10, y = 10) {
 		var tableL = [];
 		for (var j = 0; j < y; j++) {
 			tableL.push(Math.round(Math.random()) == 0);
+			//tableL.push(false);
 			var elem = document.createElement("td");
 			elem.id = i * y + j;
 			elem.className = (tableL[j])?'alive':'dead';
@@ -38,11 +39,24 @@ function actuTable() {
 		for (var j = 0; j < table[i].length; j++) {
 			//document.getElementById(i * table[0].length + j).style.opacity = 0;
 			var voisin = 0;
-			for (var m = Math.max(0, i-1); m <= Math.min(i+1, table.length-1); m++) {
+			for (var m = i-1; m <= i+1; m++) {
+				var y;
+				if(m == -1) y = table.length - 1;
+				else if(m == table.length) y = 0;
+				else y = m;
+				for (var n = j-1; n <= j+1; n++) {
+					var x;
+					if(n == -1) x = table[i].length - 1;
+					else if(n == table[i].length) x = 0;
+					else x = n;
+					if(!(m == i && n == j) && table[y][x]) voisin++;
+				}
+			}
+			/*for (var m = Math.max(0, i-1); m <= Math.min(i+1, table.length-1); m++) {
 				for (var n = Math.max(0, j-1); n <= Math.min(j+1, table[i].length-1); n++) {
 					if(!(m == i && n == j) && table[m][n]) voisin++;
 				}
-			}
+			}*/
 			tmpt[i][j] = (voisin == 3 || (table[i][j] && voisin == 2));
 			if(tmpt[i][j]) document.getElementById(i * table[0].length + j).className = 'alive';
 			else document.getElementById(i * table[0].length + j).className = 'dead';
@@ -59,12 +73,12 @@ function actuTable() {
 		table.push(fuck);
 	}
 }
-genTable(50,70);
+genTable(50,50);
 var isAlive = 0;
 document.getElementById("launcher").onclick = function(){
 	if(isAlive != 0) {
 		clearInterval(isAlive);
 		isAlive = 0;
 	}
-	else isAlive = setInterval(actuTable, 250);
+	else isAlive = setInterval(actuTable, 100);
 }
