@@ -1,20 +1,14 @@
-var better = Game.ObjectsById[0];
 function bestInvest() {
   var bratios = {};
-  var bratio = better.storedCps / better.bulkPrice;
   var cassecouille = Object.keys(Game.Objects);
   cassecouille.forEach(function(index){
     var item = Game.Objects[index];
     item.l.style.border = '0 none white';
     var ratio = item.storedCps / item.bulkPrice;
     bratios[index] = ratio;
-    if(ratio > bratio) {
-      bratio = ratio;
-      better = item;
-    }
   });
   var maxs = [];
-  for(var i = 0; i < 5; i++) {
+  for(var i = 0; i <= 10; i++) {
     var max = ['', 0];
     var couple = Object.entries(bratios);
     couple.forEach(function(item){
@@ -26,19 +20,18 @@ function bestInvest() {
     maxs.unshift(max);
     bratios[max[0]] = -1;
   }
-  var color = ['white', 'green', 'blue', 'orange', 'red'];
-  for(var i = 4; i >= 0; i--) {
+  var color = ['#000000', '#ffffff', '#ff0000', '#ff0080', '#ff00ff', '#8000ff', '#0000ff', '#0080ff', '#00ffff', '#00ff80', '#00ff00'];
+  for(var i = 10; i >= 0; i--) {
     var tmp = maxs[i][0];
     tmp = Game.Objects[tmp];
     tmp.l.style.border = '5px solid ' + color[i];
   }
-  better.l.style.border = '5px solid red';
 }
 var SelectInvest = setInterval(bestInvest, 100);
 
 
 // Sert à récupérer la position d'un élément
-* @author Patrick Poulain
+/* @author Patrick Poulain
 * @see http://petitchevalroux.net
 * @licence GPL
 *
@@ -59,7 +52,7 @@ function getPosition(element)
   return new Array(left,top);
 }
 var myPos = getPosition("bigCookie");
-
+*/
 
 // Simule un évènement de type clic sur le cookie
 function simulateClick() {
@@ -74,7 +67,10 @@ function simulateClick() {
 
 // Permet de mettre fin à l'autoclic quand on évolue
 var testtt = document.getElementById("legacyButton");
-testtt.onmousedown = function(){clearInterval(myAutoClic)};
+testtt.onmousedown = function(){
+  clearInterval(myAutoClic); 
+  clearInterval(SelectInvest);
+};
 
 // Lance l'autoclic
 var myAutoClic = setInterval(simulateClick, 10);
