@@ -1,6 +1,8 @@
 .dead, .alive {
-	width: 10px;
-	height: 10px;
+	width: 2px;
+	height: 2px;
+	padding: 0;
+	margin: 0;
 }
 
 .dead {
