@@ -19,8 +19,15 @@ function genTable(x = 10, y = 10) {
 			var elem = document.createElement("td");
 			elem.id = i * y + j;
 			elem.className = (tableL[j])?'alive':'dead';
-			elem.onclick = function(){
+			elem.onmouseenter = function(){
+				if(painting) changerStatu(this);
+			}
+			elem.onmousedown = function(){
+				painting = true;
 				changerStatu(this);
+			}
+			elem.onmouseup = function(){
+				painting = false;
 			}
 			ligne.appendChild(elem);
 		}
@@ -76,7 +83,8 @@ function actuTable() {
 
 var lignes = 0;
 var colonnes = 0;
-genTable(150,150);
+var painting = false;
+genTable(25,25);
 var isAlive = 0;
 document.getElementById("launcher").onclick = function(){
 	if(isAlive != 0) {
@@ -109,24 +117,30 @@ document.getElementById("respawn").onclick = function(){
 		}
 	}
 }
-document.getElementById("plus").onclick = function(){
-	for (var i = 0; i < lignes; i++) {
-		for (var j = 0; j < colonnes; j++) {
-			var elem = document.getElementById(i * colonnes + j);
-			var tmp = elem.offsetWidth + 1
-			elem.style.width = tmp + 'px';
-			var tmp = elem.offsetHeight + 1
-			elem.style.height = tmp + 'px';
-		}
-	}
+var zoomPlus = 0;
+document.getElementById("plus").onmousedown = function(){
+	zoomPlus = setInterval(function(){
+		document.styleSheets[0].cssRules[0].style.width = Math.min(++document.getElementById(0).offsetWidth, Math.floor(document.body.offsetWidth / lignes)) + 'px';
+		document.styleSheets[0].cssRules[0].style.height = Math.min(++document.getElementById(0).offsetHeight, Math.floor(document.body.offsetWidth / lignes)) + 'px';
+	}, 100);
 }
-document.getElementById("moins").onclick = function(){
-	for (var i = 0; i < lignes; i++) {
-		for (var j = 0; j < colonnes; j++) {
-			var elem = document.getElementById(i * colonnes + j);
-			elem.style.width = (elem.offsetWidth - 1) + 'px';
-			elem.style.height = (elem.offsetHeight - 1) + 'px';
-		}
-	}
+document.getElementById("plus").onmouseup = function(){
+	clearInterval(zoomPlus);
+}
+document.getElementById("plus").onmouseout = function(){
+	clearInterval(zoomPlus);
+}
+var zoomMoins = 0;
+document.getElementById("moins").onmousedown = function(){
+	zoomMoins = setInterval(function(){
+		document.styleSheets[0].cssRules[0].style.width = Math.max(--document.getElementById(0).offsetWidth, 1) + 'px';
+		document.styleSheets[0].cssRules[0].style.height = Math.max(--document.getElementById(0).offsetHeight, 1) + 'px';
+	}, 100);
+}
+document.getElementById("moins").onmouseup = function(){
+	clearInterval(zoomMoins);
+}
+document.getElementById("moins").onmouseout = function(){
+	clearInterval(zoomMoins);
 }
 document.getElementById("onePass").onclick = actuTable;
