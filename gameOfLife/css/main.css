@@ -12,3 +12,8 @@
 .alive {
 	background-color: white;
 }
+
+#grille {
+	padding: 0;
+	margin: 0;
+}

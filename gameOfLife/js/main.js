@@ -9,9 +9,13 @@ function changerStatu(elem) {
 function genTable(x = 10, y = 10) {
 	lignes = x;
 	colonnes = y;
+	var tableau = document.getElementById("grille");
+	tableau.innerHTML = '';
+	document.styleSheets[0].cssRules[0].style.width = (95 / y) + 'vh';
+	document.styleSheets[0].cssRules[0].style.height = (95 / x) + 'vh';
 	for (var i = 0; i < x; i++) {
 		var ligne = document.createElement("tr");
-		document.body.appendChild(ligne);
+		tableau.appendChild(ligne);
 		var tableL = [];
 		for (var j = 0; j < y; j++) {
 			tableL.push(Math.round(Math.random()) == 0);
@@ -84,14 +88,19 @@ function actuTable() {
 var lignes = 0;
 var colonnes = 0;
 var painting = false;
-genTable(125,125);
+genTable(250,250);
 var isAlive = 0;
-document.getElementById("launcher").onclick = function(){
+var launcher = document.getElementById("launcher");
+launcher.onclick = function(){
 	if(isAlive != 0) {
 		clearInterval(isAlive);
 		isAlive = 0;
+		launcher.innerHTML = 'Play';
 	}
-	else isAlive = setInterval(actuTable, 100);
+	else {
+		isAlive = setInterval(actuTable, 100);
+		launcher.innerHTML = 'Pause';
+	}
 }
 document.getElementById("nuke").onclick = function(){
 	for (var i = 0; i < lignes; i++) {
