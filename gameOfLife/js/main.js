@@ -84,7 +84,7 @@ function actuTable() {
 var lignes = 0;
 var colonnes = 0;
 var painting = false;
-genTable(25,25);
+genTable(125,125);
 var isAlive = 0;
 document.getElementById("launcher").onclick = function(){
 	if(isAlive != 0) {
