@@ -32,7 +32,7 @@ var SelectInvest = setInterval(bestInvest, 100);
 function goldenAutoClic(){
   var mytmpac = document.getElementsByClassName('shimmer');
   if(mytmpac.length != 0) {
-    for(i in mytmpac) {
+    for(var i = 0; i < mytmpac.length; i++) {
       var evt = new MouseEvent('click', {
         view: window,
         bubbles: true,
