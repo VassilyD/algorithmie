@@ -29,8 +29,7 @@ function bestInvest() {
 }
 var SelectInvest = setInterval(bestInvest, 100);
 
-
-var goldenAutoClic = setInterval(function(){
+function goldenAutoClic(){
   var mytmpac = document.getElementsByClassName('shimmer');
   if(mytmpac.length != 0) {
     for(i in mytmpac) {
@@ -39,10 +38,12 @@ var goldenAutoClic = setInterval(function(){
         bubbles: true,
         cancelable: true,
       }); 
+      console.log(mytmpac[i]);
       var canceled = mytmpac[i].dispatchEvent(evt);
     }
   }
-}, 100);
+}
+var goldenAC = setInterval(goldenAutoClic, 100);
 
 
 // Sert à récupérer la position d'un élément
@@ -88,4 +89,4 @@ testtt.onmousedown = function(){
 };
 
 // Lance l'autoclic
-var myAutoClic = setInterval(simulateClick, 10);
+var myAutoClic = setInterval(simulateClick, 25);
