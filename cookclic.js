@@ -37,14 +37,32 @@ function goldenAutoClic(){
         view: window,
         bubbles: true,
         cancelable: true,
-      }); 
-      console.log(mytmpac[i]);
+      });
       var canceled = mytmpac[i].dispatchEvent(evt);
+      i--;
+    }
+    for(i in Game.shimmers) {
     }
   }
 }
 var goldenAC = setInterval(goldenAutoClic, 100);
 
+var nbcookiess = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+var nbcookies = Game.cookieClicks;
+var cpsMoy = 0;
+var myStatButton = document.getElementById("statsButton");
+function myStatActu(){
+  var oldcps = nbcookiess.shift();
+  nbcookiess.push(Game.cookieClicks - nbcookies);
+  nbcookies = Game.cookieClicks;
+  var somme = 0;
+  for(var i = 0; i < 10; i++) {
+    somme += nbcookiess[i];
+  }
+  cpsMoy = somme / 10;
+  myStatButton.innerHTML = 'Stats<br><em>' + cpsMoy + ' cps</em>';
+}
+var testNbCookiess = setInterval(myStatActu, 1000);
 
 // Sert à récupérer la position d'un élément
 /* @author Patrick Poulain
@@ -84,9 +102,28 @@ function simulateClick() {
 // Permet de mettre fin à l'autoclic quand on évolue
 var testtt = document.getElementById("legacyButton");
 testtt.onmousedown = function(){
-  clearInterval(myAutoClic); 
-  clearInterval(SelectInvest);
+  if(myAutoClic != 0) {
+    clearInterval(myAutoClic); 
+    myAutoClic = 0;
+    clearInterval(SelectInvest);
+    clearInterval(goldenAC);
+    clearInterval(testNbCookiess);
+    myStatButton.innerHTML = 'Stats';
+    nbcookiess = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
+    var cassecouille = Object.keys(Game.Objects);
+    cassecouille.forEach(function(index){
+      var item = Game.Objects[index];
+      item.l.style.border = '0 none white';
+    });
+  }
+  else {
+    myAutoClic = setInterval(simulateClick, 10);
+    SelectInvest = setInterval(bestInvest, 100);
+    goldenAC = setInterval(goldenAutoClic, 100);
+    nbcookies = Game.cookieClicks;
+    testNbCookiess = setInterval(myStatActu, 1000);
+  }
 };
 
 // Lance l'autoclic
-var myAutoClic = setInterval(simulateClick, 25);
+var myAutoClic = setInterval(simulateClick, 10);
