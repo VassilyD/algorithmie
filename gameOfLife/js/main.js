@@ -11,7 +11,7 @@ function genTable(x = 10, y = 10) {
 	colonnes = y;
 	table = [];
 	//var tableau = document.getElementById("grille");
-	var tableau = createElement("table");
+	var tableau = document.createElement("table");
 	tableau.id = 'grille';
 	document.styleSheets[0].cssRules[0].style.width = (95 / y) + 'vh';
 	document.styleSheets[0].cssRules[0].style.height = (95 / x) + 'vh';
