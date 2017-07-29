@@ -30,6 +30,21 @@ function bestInvest() {
 var SelectInvest = setInterval(bestInvest, 100);
 
 
+var goldenAutoClic = setInterval(function(){
+  var mytmpac = document.getElementsByClassName('shimmer');
+  if(mytmpac.length != 0) {
+    for(i in mytmpac) {
+      var evt = new MouseEvent('click', {
+        view: window,
+        bubbles: true,
+        cancelable: true,
+      }); 
+      var canceled = mytmpac[i].dispatchEvent(evt);
+    }
+  }
+}, 100);
+
+
 // Sert à récupérer la position d'un élément
 /* @author Patrick Poulain
 * @see http://petitchevalroux.net
