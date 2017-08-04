@@ -39,7 +39,7 @@ function bestInvest() {
   }
 }
 
-var inStorming = 0;
+//var inStorming = 0;
 function goldenAutoClic(){
   var mytmpac = document.getElementsByClassName('shimmer');
   if(mytmpac.length != 0) {
