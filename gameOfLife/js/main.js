@@ -9,13 +9,14 @@ function changerStatu(elem) {
 function genTable(x = 10, y = 10) {
 	lignes = x;
 	colonnes = y;
-	var tableau = document.getElementById("grille");
-	tableau.innerHTML = '';
+	table = [];
+	//var tableau = document.getElementById("grille");
+	var tableau = document.createElement("table");
+	tableau.id = 'grille';
 	document.styleSheets[0].cssRules[0].style.width = (95 / y) + 'vh';
 	document.styleSheets[0].cssRules[0].style.height = (95 / x) + 'vh';
 	for (var i = 0; i < x; i++) {
 		var ligne = document.createElement("tr");
-		tableau.appendChild(ligne);
 		var tableL = [];
 		for (var j = 0; j < y; j++) {
 			tableL.push(Math.round(Math.random()) == 0);
@@ -36,7 +37,10 @@ function genTable(x = 10, y = 10) {
 			ligne.appendChild(elem);
 		}
 		table.push(tableL);
+		tableau.appendChild(ligne);
 	}
+	document.body.removeChild(document.getElementById('grille'));
+	document.body.appendChild(tableau);
 }
 
 function actuTable() {
@@ -88,7 +92,7 @@ function actuTable() {
 var lignes = 0;
 var colonnes = 0;
 var painting = false;
-genTable(250,250);
+genTable(150,150);
 var isAlive = 0;
 var launcher = document.getElementById("launcher");
 launcher.onclick = function(){
@@ -119,12 +123,13 @@ document.getElementById("fill").onclick = function(){
 	}
 }
 document.getElementById("respawn").onclick = function(){
-	for (var i = 0; i < lignes; i++) {
+	/*for (var i = 0; i < lignes; i++) {
 		for (var j = 0; j < colonnes; j++) {
 			table[i][j] = (Math.round(Math.random()) == 0);
 			document.getElementById(i * colonnes + j).className = (table[i][j])?'alive':'dead';
 		}
-	}
+	}*/
+	genTable(lignes, colonnes);
 }
 var zoomPlus = 0;
 document.getElementById("plus").onmousedown = function(){
