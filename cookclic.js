@@ -145,7 +145,7 @@ function simulateClick() {
   Game.mouseY = Game.mouseY2 = tmpY;
 }
 
-function myStart(myInterval = ['myAutoClic', 'SelectInvest', 'goldenAC', 'testNbCookiess']) {
+function myStart(myInterval = ['myAutoClic', 'goldenAC', 'testNbCookiess']) {
   if(typeof(myInterval) === 'object') {
     var tmp = myInterval.length
     for(var i = 0; i < tmp; i++) {
