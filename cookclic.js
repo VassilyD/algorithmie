@@ -70,7 +70,8 @@ function goldenAutoClic(){
 function bestWrinklers() {
   var iDead = 0;
   var iSucked = 0;
-  for(var i = 0; i < 12; i++) {
+  var tmpMax = Game.getWrinklersMax();
+  for(var i = 0; i < tmpMax; i++) {
       if(Game.wrinklers[i].phase == 0) Game.wrinklers[i].phase = 1;
       if(Game.wrinklers[i].sucked > Game.wrinklers[iSucked].sucked) {
         iDead = iSucked;
@@ -105,7 +106,8 @@ function myStatActu(){
   var nbWrinklers = 0;
   var iSucked = 0;
   var iDead = 0;
-  for(var i = 0; i < 12; i++) {
+  var tmpMax = Game.getWrinklersMax();
+  for(var i = 0; i < tmpMax; i++) {
     if(Game.wrinklers[i].type == 0) Game.wrinklers[i].type = 1;
     if(Game.wrinklers[i].close == 1) nbWrinklers++;
     if(Game.wrinklers[i].sucked > Game.wrinklers[iSucked].sucked) {
@@ -114,7 +116,7 @@ function myStatActu(){
     }
     else if(Game.wrinklers[i].sucked > Game.wrinklers[iDead].sucked) iDead = i;
   }
-  if(nbWrinklers == Game.getWrinklersMax()) Game.wrinklers[iDead].hp = 0;
+  if(nbWrinklers == tmpMax) Game.wrinklers[iDead].hp = 0;
 }
 
 
