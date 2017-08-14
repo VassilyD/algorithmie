@@ -116,7 +116,7 @@ function myStatActu(){
     }
     else if(Game.wrinklers[i].sucked > Game.wrinklers[iDead].sucked) iDead = i;
   }
-  if(nbWrinklers == tmpMax) Game.wrinklers[iDead].hp = 0;
+  if(nbWrinklers > tmpMax/2) Game.wrinklers[iDead].hp = 0;
 }
 
 
