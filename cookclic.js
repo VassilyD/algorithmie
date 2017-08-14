@@ -67,6 +67,20 @@ function goldenAutoClic(){
     }
   }
 }
+function bestWrinklers() {
+  var iDead = 0;
+  var iSucked = 0;
+  for(var i = 0; i < 12; i++) {
+      if(Game.wrinklers[i].phase == 0) Game.wrinklers[i].phase = 1;
+      if(Game.wrinklers[i].sucked > Game.wrinklers[iSucked].sucked) {
+        iDead = iSucked;
+        iSucked = i;
+      }
+      else if(Game.wrinklers[i].sucked > Game.wrinklers[iDead].sucked) iDead = i;
+    }
+  console.log(Game.wrinklers[iSucked]);
+  console.log(Game.wrinklers[iDead]);
+}
 
 var nbcookiess = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0];
 var nbcookies = Game.cookieClicks;
