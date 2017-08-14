@@ -89,18 +89,20 @@ function myStatActu(){
   if(typeof(myStatButton.childNodes[1]) !== 'undefined') myStatButton.removeChild(myStatButton.childNodes[1]);
   myStatButton.appendChild(tmp);
   var nbWrinklers = 0;
-  var maxSucked = 0;
   var iSucked = 0;
+  var iDead = 0;
   for(var i = 0; i < 12; i++) {
     if(Game.wrinklers[i].type == 0) Game.wrinklers[i].type = 1;
     if(Game.wrinklers[i].close == 1) nbWrinklers++;
-    if(Game.wrinklers[i].sucked > maxSucked) {
-      maxSucked = Game.wrinklers[i].sucked;
+    if(Game.wrinklers[i].sucked > Game.wrinklers[iSucked].sucked) {
+      iDead = iSucked;
       iSucked = i;
     }
+    else if(Game.wrinklers[i].sucked > Game.wrinklers[iDead].sucked) iDead = i;
   }
-  if(nbWrinklers == Game.getWrinklersMax()) Game.wrinklers[iSucked].hp = 0;
+  if(nbWrinklers == Game.getWrinklersMax()) Game.wrinklers[iDead].hp = 0;
 }
+
 
 // Sert à récupérer la position d'un élément
 /* @author Patrick Poulain
