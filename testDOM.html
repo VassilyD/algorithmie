@@ -2,22 +2,35 @@
 <html>
 <head>
 	<title></title>
+	<script src="jquery-3.2.1.js"></script>
 </head>
 <body>
-	<img src="a.jpg" alt="lalala" onclick="mySwitch()">
+	<img id="image" src="a.jpg" alt="lalala">
+	<div id="texte">Que du texte</div>
+	<ul>
+		<li>truc 1</li>
+		<li>truc 2</li>
+		<li>truc 3</li>
+	</ul>
+	<button id="butt">clic me</button>
 
 	<script type="text/javascript">
-		function mySwitch() {
-			var elem = document.getElementsByTagName("img")[0];
-			if(elem.alt == 'lalala') {
-				elem.src = "b.png";
-				elem.alt = "lilili";
+		var tmpColor = "black";
+		$("img:first").click(function(){
+			if ($(this).attr("alt") == "lalala") $(this).attr({"src" : "b.png", "alt" : "lilili"});
+			else $(this).attr({"src" : "a.jpg", "alt" : "lalala"});
+		});
+
+		$("#butt").click(function(){$("#texte").toggle()});
+
+		$("li").click(function(){
+			if($(this).css("color") != "rgb(255, 0, 0)") {
+				tmpColor = $(this).css("color");
+				$(this).css("color", "red");
 			}
-			else {
-				elem.src = "a.jpg";
-				elem.alt = "lalala";
-			}
-		}
+			else $(this).css("color", tmpColor);
+		});
 	</script>
+
 </body>
 </html>
