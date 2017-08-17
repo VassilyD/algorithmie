@@ -3,110 +3,18 @@
 <head>
 	<title>Pomodoro</title>
 	<script src="jquery-3.2.1.min.js"></script>
-	<script type="text/javascript">
-		var isLooping = false;
-		var isPaused = false;
-		var time = 1500000;
-		var timer = 0;
-		var date = 0;
-		var player;
-		var display;
-		var phase = 0;
-		var tWork = 10000;
-		var tBreak = 2000;
-		var tStop = 5000;
-		var cycle = 0;
-		function styleTime(time = 0) {
-			//time = Math.round(time / 1000);
-			var hours = Math.floor(time / 3600000);
-			time -= 3600000 * hours;
-
-			if(hours < 10 && hours > 0) hours = "0" + hours;
-			else if(hours == 0) hours = "00";
-
-			var mins = Math.floor(time / 60000);
-			if(mins < 10 && mins > 0) mins = "0" + mins;
-			else if(mins == 0) mins = "00";
-			time -= 60000 * mins;
-
-			var seconde = Math.round(time / 1000);
-			if(seconde < 10 && seconde > 0) seconde = "0" + seconde;
-			else if(seconde == 0) seconde = "00";
-
-			return "" + hours + " : " + mins + " : " + seconde;
-		}
-
-		function timing() {
-			var tmp = new Date();
-			tmp = tmp.getTime();
-			time -= (tmp - date);
-			date = tmp;
-			if(time > 0) display.html(styleTime(time));
-			else display.html(styleTime(0));
-
-			if(time < 0) {
-				if(phase == 0 && cycle < 3){
-					time = tBreak;
-					display.html(styleTime(time));
-					phase = 1;
-				}
-				else if(phase == 1 || phase == 2) {
-					time = tWork;
-					display.html(styleTime(time));
-					phase = 0;
-					if(cycle < 3) cycle++;
-					else cycle = 0;
-				}
-				else if(phase == 0 && cycle == 3) {
-					time = tStop;
-					display.html(styleTime(time));
-					phase = 2
-				}
-			}
-		}
-	</script>
+	<script src="function.js"></script>
 </head>
 <body>
 	<button id="play">Lancer</button>
 	<button id="stop">STOP</button>
 	<div id="time"></div>
 	<form>
-		Temps de travail (mn) : <input type="number" name="tWork" min="0"><br>
-		Temps de pause (mn) : <input type="number" name="tBreak" min="0"><br>
-		Temps de grande pause (mn) (tous les 4 cycles) : <input type="number" name="tStop" min="0"><br>
+		Temps de travail (mn) : <input type="number" name="tWork" min="0" value="20"><br>
+		Temps de pause (mn) : <input type="number" name="tBreak" min="0" value="10"><br>
+		Temps de grande pause (mn) (tous les 4 cycles) : <input type="number" name="tStop" min="0" value="30"><br>
 	</form>
 
-
-	<script>
-	$(document).ready(function(){
-		player = $("#play");
-		display = $("#time");
-		display.html(styleTime(time));
-		player.click(function(){
-			if(!isLooping) {
-				date = new Date();
-				date = date.getTime();
-				time = tWork;
-				player.text("Pause");
-				display.html(styleTime(time));	
-				timer = setInterval(timing, 1000);
-				isLooping = true;
-			}
-			else if(isPaused) {
-				date = new Date();
-				date = date.getTime();
-				timer = setInterval(timing, 1000);
-				isPaused = false;
-				player.text("Pause");
-			}
-			else {
-				clearInterval(timer);
-				isPaused = true;
-				player.text("Play");
-			}
-		});
-		
-	});
-	</script>
+	<script src="core.js"></script>
 </body>
 </html>
