@@ -36,7 +36,25 @@
 			play.text('Lancer');
 		});
 		
-		$('input:first').change(function(){tWork = inputs[0].value * MS_IN_MINUTE});
-		$('input:nth-child(3)').change(function(){tBreak = inputs[1].value * MS_IN_MINUTE});
-		$('input:last').change(function(){tStop = inputs[2].value * MS_IN_MINUTE});
+		$('input:first').change(function(){
+			if(!inBreak) {
+				time += inputs[0].value * MS_IN_MINUTE - tWork;
+				display.html(styleTime(time));
+			}
+			tWork = inputs[0].value * MS_IN_MINUTE;
+		});
+		$('input:nth-child(3)').change(function(){
+			if(inBreak && cycle < 3) {
+				time += inputs[1].value * MS_IN_MINUTE - tBreak;
+				display.html(styleTime(time));
+			}
+			tBreak = inputs[1].value * MS_IN_MINUTE;
+		});
+		$('input:last').change(function(){
+			if(inBreak && cycle == 3) {
+				time += inputs[2].value * MS_IN_MINUTE - tStop;
+				display.html(styleTime(time));
+			}
+			tStop = inputs[2].value * MS_IN_MINUTE;
+		});
 	});
