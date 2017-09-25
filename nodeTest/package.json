@@ -1,0 +1,17 @@
+{
+  "name": "nodereloudescapital",
+  "version": "0.1.0",
+  "description": "un entrainement à node",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "vassily",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "mongo-express": "^0.42.2",
+    "mongod": "^2.0.0"
+  },
+  "devDependencies": {}
+}
