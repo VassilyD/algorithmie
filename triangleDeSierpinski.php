@@ -144,18 +144,22 @@ $ctab = ['@', '*', '+', '^', '°', '\\', '/', '='];
 $c = '\\';
 $l = 1;
 $n = 1;
+$cols = exec('tput cols');
+// $rows = exec('tput lines');
 while(true) {
 	if($l % 1 == 0) {
-		for($i = 1; $i <= $l && $i <= 128; $i++) {
+		for($i = 1; $i <= $l && $i <= $cols; $i++) {
 			if($i % 1 == 0) echo (isSpace($l, $i))?' ':$c;
 			else echo ' ';
-			//else echo ' ';
 		}
 	}
-	usleep(100000);
+	usleep(50000);
 	echo "\n";
 	$l++;
-	if($l > pow(2, $n-1)) $n++;
+	if($l > pow(2, $n-1) or ($n > 8 and $l % pow(2,8) == 1)) {
+		$n++;
+		$c = chr(rand(33,127));
+	}
 }
 // */
 /**
@@ -163,6 +167,7 @@ $ctab[$n%8]
 chr(rand(33,127))
 $j - $p/2
 isPowerOf2($l)
+$c
 @   
 @@  
 @ @ 
