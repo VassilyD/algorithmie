@@ -37,6 +37,21 @@ function bestInvest() {
     tmp = Game.Objects[tmp];
     tmp.l.style.border = '5px solid ' + color[i];
   }
+
+  // clic sur le meilleur investissement
+  var evt = new MouseEvent('click', {
+     view: window,
+     bubbles: true,
+     cancelable: true,
+  });
+  var tmp = maxs[10][2];
+  tmp = Game.Objects[tmp];
+  var canceled = tmp.l.dispatchEvent(evt);
+
+  // garde le temps restant aux buff à leur maximum = buff infini
+  /*for(buffName in Game.buffs) {
+	  if(buffName != "Cookie storm" && buffName != "Click frenzy") Game.buffs[buffName].time = Game.buffs[buffName].maxTime;
+  }*/
 }
 
 //var inStorming = 0;
